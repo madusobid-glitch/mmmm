@@ -2307,7 +2307,7 @@ body.cosmic-shake{
             </div>
             <h1
                 class="title typing"
-                data-text="สวัสดี คนน่ารัก...">
+                data-text="Sawad D kon narak">
             </h1>
             <p class="subtitle">
                 ระบบไม่ได้ตั้งใจจะรบกวนอะไรน้ะ
@@ -2345,7 +2345,7 @@ body.cosmic-shake{
             </h1>
             <p class="subtitle">
                 ระบบกำลังพยายามหาวิธีทำให้คุนยิ้มแล้วก็
-                ทำไม่ให้ดูเหมือนตั้งใจจีบเกินไป
+                ทำไม่ให้ดูเหมือนตั้งใจจีบเกินไป ห้าห้าห้า
             </p>
             <div class="hud-window">
                 <div class="hud-header">
@@ -2466,7 +2466,7 @@ body.cosmic-shake{
                 class="cosmic-btn scan-btn"
                 id="scanButton"
                 onclick="runScan()">
-                🔍 SCAN ความน่ารัก
+                 SCAN ความน่ารัก
             </button>
         </div>
     </section>
@@ -2666,49 +2666,49 @@ body.cosmic-shake{
                 PART 06 / THREE PORTALS
             </div>
             <h1 class="title">
-                เลือก
+                กดมากดมา
                 <span class="gradient-text">
-                    เร้ววว
+                    เร้วววเร้วน้ะ
                 </span>
             </h1>
             <p class="subtitle">
-                เลือกมาน้ะ
+                น่ารักจิงจิง
                ห้าห้าห้า
             </p>
             <div class="portal-grid">
                 <button
                     class="portal"
-                    onclick="choosePortal('คุยกัน')">
+                    onclick="choosePortal('ไม่ให้กดน้า')">
                     <div class="portal-content">
                         <div class="portal-icon">
-                            💬
+                          🤷🏻‍♀️
                         </div>
                         <div class="portal-label">
-                            คุยกัน
+                            กดทำไมคับคนน่ารัก
                         </div>
                     </div>
                 </button>
                 <button
                     class="portal"
-                    onclick="choosePortal('ทำความรู้จัก')">
+                    onclick="choosePortal('KT')">
                     <div class="portal-content">
                         <div class="portal-icon">
-                            ✨
+                            🧏🏻‍♀️
                         </div>
                         <div class="portal-label">
-                            รู้จักกัน
+                            คิดถึงเค้ามั้ย มากอดเค้ามา
                         </div>
                     </div>
                 </button>
                 <button
                     class="portal"
-                    onclick="choosePortal('ไปกินของอร่อย')">
+                    onclick="choosePortal('อย่ายิ้ม')">
                     <div class="portal-content">
                         <div class="portal-icon">
-                            🍰
+                            🙂‍↔️
                         </div>
                         <div class="portal-label">
-                            ของอร่อย
+                            อย่ายิ้มมันจาเขินนะ
                         </div>
                     </div>
                 </button>
@@ -3586,7 +3586,7 @@ function finishScan(){
                         );
                     button.disabled=false;
                     button.textContent=
-                        "💙 SCAN อีกรอบไม่ได้แล้ว เขิน";
+                        " SCAN อีกรอบไม่ได้แล้ว มานเขิน";
                     scanRunning=false;
                     scanCompleted=true;
                 },
@@ -3607,12 +3607,12 @@ function choosePortal(
             "portalResponse"
         );
     const messages={
-        "คุยกัน":
-            "💬 ดีเลย เพราะจริง ๆ เราก็อยากคุยด้วย",
-        "ทำความรู้จัก":
-            "✨ อันนี้ระบบแนะนำเป็นพิเศษเลย",
-        "ไปกินของอร่อย":
-            "🍰 อันนี้น่าสนใจที่สุดแบบไม่ต้องคิดเลย"
+        "ไม่ให้กดน้า":
+            "สรุปแก้มอ้วนน่ารักมั้ย",
+        "KT":
+            "ห้าห้าห้า โอ้ยเขินหว่ะมากอดเค้าเลยคับ",
+        "อย่ายิ้ม":
+            "แอะแอะน่ารักคับ"
     };
     response.innerHTML =
         `<span class="cyan">${messages[choice]}</span>`;
