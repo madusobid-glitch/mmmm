@@ -1,0 +1,2915 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101b49">
+
+<title>HELLO, CUTIE 💙</title>
+
+<style>
+:root{
+ --sky:#8ed8ff;
+ --blue:#5799ee;
+ --deep:#0a1235;
+ --white:#f8fdff;
+ --glass:rgba(255,255,255,.13);
+ --line:rgba(255,255,255,.25);
+}
+
+*{
+ box-sizing:border-box;
+}
+
+html{
+ scroll-behavior:smooth;
+}
+
+body{
+ margin:0;
+ color:var(--white);
+ background:#07102e;
+ font-family:
+ system-ui,
+ -apple-system,
+ BlinkMacSystemFont,
+ "Segoe UI",
+ sans-serif;
+ overflow-x:hidden;
+}
+
+body:before{
+ content:"";
+ position:fixed;
+ inset:0;
+ z-index:-20;
+
+ background:
+ radial-gradient(
+  circle at 20% 15%,
+  #d4f8ff 0 1%,
+  transparent 20%
+ ),
+ radial-gradient(
+  circle at 80% 70%,
+  rgba(128,191,255,.5),
+  transparent 28%
+ ),
+ linear-gradient(
+  180deg,
+  #79d4ff,
+  #5799ee 46%,
+  #17285f
+ );
+
+ transition:1s;
+}
+
+body.night:before{
+ background:
+ radial-gradient(
+  circle at 70% 20%,
+  rgba(117,159,255,.18),
+  transparent 25%
+ ),
+ linear-gradient(
+  180deg,
+  #03081d,
+  #101b49 55%,
+  #02040d
+ );
+}
+
+/* =========================
+   LOADING
+========================= */
+
+#loader{
+ position:fixed;
+ inset:0;
+
+ background:#050a20;
+
+ z-index:1000;
+
+ display:grid;
+ place-items:center;
+
+ transition:
+  opacity .8s,
+  visibility .8s;
+}
+
+#loader.hide{
+ opacity:0;
+ visibility:hidden;
+}
+
+.loaderBox{
+ width:min(430px,84vw);
+ text-align:center;
+}
+
+.loaderOrb{
+ width:120px;
+ height:120px;
+
+ margin:auto;
+
+ border-radius:50%;
+
+ background:
+ radial-gradient(
+  circle at 35% 30%,
+  #fff,
+  #9ee8ff 25%,
+  #638de9 60%,
+  #16275d
+ );
+
+ box-shadow:
+ 0 0 80px
+ rgba(130,222,255,.7);
+
+ animation:
+  float 3s ease-in-out infinite;
+
+ display:grid;
+ place-items:center;
+
+ font-size:55px;
+}
+
+.loaderText{
+ margin-top:25px;
+ font-weight:800;
+ letter-spacing:.08em;
+}
+
+.loaderBar{
+ height:7px;
+
+ background:#172044;
+
+ border-radius:99px;
+
+ overflow:hidden;
+
+ margin-top:18px;
+}
+
+.loaderBar i{
+ display:block;
+
+ width:0;
+ height:100%;
+
+ background:white;
+
+ border-radius:inherit;
+
+ transition:.2s;
+}
+
+/* =========================
+   STARS
+========================= */
+
+#stars,
+#particles{
+ position:fixed;
+ inset:0;
+
+ pointer-events:none;
+
+ z-index:10;
+}
+
+.star{
+ position:absolute;
+
+ width:3px;
+ height:3px;
+
+ border-radius:50%;
+
+ background:white;
+
+ opacity:.7;
+
+ animation:
+  twinkle 2s infinite alternate;
+}
+
+.star.big{
+ width:5px;
+ height:5px;
+
+ box-shadow:
+ 0 0 12px white;
+}
+
+@keyframes twinkle{
+ to{
+  opacity:.08;
+  transform:scale(.35);
+ }
+}
+
+/* =========================
+   CLOUD
+========================= */
+
+.cloud{
+ position:fixed;
+
+ width:160px;
+ height:50px;
+
+ border-radius:50px;
+
+ background:
+ rgba(255,255,255,.7);
+
+ opacity:.5;
+
+ z-index:-5;
+
+ animation:
+  cloud 30s linear infinite;
+}
+
+.cloud:before,
+.cloud:after{
+ content:"";
+
+ position:absolute;
+
+ background:white;
+
+ border-radius:50%;
+}
+
+.cloud:before{
+ width:80px;
+ height:80px;
+
+ left:25px;
+ top:-38px;
+}
+
+.cloud:after{
+ width:92px;
+ height:92px;
+
+ right:20px;
+ top:-50px;
+}
+
+@keyframes cloud{
+ from{
+  transform:translateX(-35vw);
+ }
+
+ to{
+  transform:translateX(135vw);
+ }
+}
+
+/* =========================
+   NAV
+========================= */
+
+nav{
+ position:fixed;
+
+ top:16px;
+ left:50%;
+
+ transform:translateX(-50%);
+
+ z-index:50;
+
+ display:flex;
+
+ gap:5px;
+
+ padding:7px;
+
+ border:
+ 1px solid var(--line);
+
+ border-radius:999px;
+
+ background:
+ rgba(5,13,45,.35);
+
+ backdrop-filter:
+  blur(15px);
+
+ max-width:92vw;
+
+ overflow:auto;
+}
+
+nav button{
+ border:0;
+
+ background:transparent;
+
+ color:white;
+
+ padding:
+ 8px 10px;
+
+ border-radius:999px;
+
+ cursor:pointer;
+
+ font-weight:800;
+
+ font-size:.76rem;
+
+ transition:.2s;
+
+ white-space:nowrap;
+}
+
+nav button:hover,
+nav button.active{
+ background:
+ rgba(255,255,255,.18);
+}
+
+/* =========================
+   NIGHT BUTTON
+========================= */
+
+.topBtn{
+ position:fixed;
+
+ right:16px;
+ top:66px;
+
+ z-index:51;
+
+ border:
+ 1px solid var(--line);
+
+ background:
+ rgba(5,13,45,.35);
+
+ color:white;
+
+ padding:
+ 9px 13px;
+
+ border-radius:999px;
+
+ cursor:pointer;
+
+ backdrop-filter:
+  blur(12px);
+}
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress{
+ position:fixed;
+
+ left:16px;
+ bottom:15px;
+
+ z-index:50;
+
+ font-size:.78rem;
+
+ opacity:.7;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+section{
+ min-height:100svh;
+
+ padding:
+ 115px
+ 7vw
+ 70px;
+
+ display:grid;
+
+ place-items:center;
+
+ position:relative;
+
+ overflow:hidden;
+}
+
+.wrap{
+ width:min(1080px,100%);
+
+ text-align:center;
+}
+
+.kicker{
+ font-size:.75rem;
+
+ letter-spacing:.2em;
+
+ text-transform:uppercase;
+
+ opacity:.7;
+}
+
+h1{
+ font-size:
+  clamp(3.3rem,12vw,8.5rem);
+
+ line-height:.84;
+
+ margin:
+ 18px 0;
+
+ font-weight:950;
+
+ letter-spacing:-.065em;
+
+ text-shadow:
+ 0 15px 45px
+ rgba(0,0,0,.18);
+}
+
+h2{
+ font-size:
+  clamp(2.1rem,6vw,4.6rem);
+
+ line-height:1;
+
+ margin:
+ 10px 0 24px;
+}
+
+h3{
+ font-size:1.35rem;
+}
+
+p{
+ font-size:
+  clamp(1rem,2vw,1.25rem);
+
+ line-height:1.8;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+ background:
+  var(--glass);
+
+ border:
+ 1px solid var(--line);
+
+ border-radius:30px;
+
+ padding:30px;
+
+ backdrop-filter:
+  blur(18px);
+
+ box-shadow:
+ 0 25px 90px
+ rgba(0,0,0,.2);
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.cta{
+ border:0;
+
+ border-radius:999px;
+
+ padding:
+ 15px 24px;
+
+ margin:
+ 10px 5px 0;
+
+ background:white;
+
+ color:#102052;
+
+ font-weight:900;
+
+ font-size:1rem;
+
+ cursor:pointer;
+
+ box-shadow:
+ 0 12px 35px
+ rgba(0,0,0,.2);
+
+ transition:.25s;
+}
+
+.cta:hover{
+ transform:
+  translateY(-4px)
+  scale(1.03);
+}
+
+.cta.secondary{
+ background:
+  rgba(255,255,255,.12);
+
+ color:white;
+
+ border:
+ 1px solid var(--line);
+
+ box-shadow:none;
+}
+
+/* =========================
+   REVEAL
+========================= */
+
+.reveal{
+ opacity:0;
+
+ transform:
+  translateY(45px)
+  scale(.98);
+
+ transition:
+  1s
+  cubic-bezier(.2,.8,.2,1);
+}
+
+.reveal.show{
+ opacity:1;
+
+ transform:none;
+}
+
+/* =========================
+   PLANET
+========================= */
+
+.planet{
+ width:min(390px,70vw);
+
+ aspect-ratio:1;
+
+ margin:
+ 20px auto;
+
+ border-radius:50%;
+
+ position:relative;
+
+ background:
+  radial-gradient(
+   circle at 30% 25%,
+   #fff 0 3%,
+   #bdf0ff 6%,
+   #72c9ff 35%,
+   #4c76df 70%,
+   #253778
+  );
+
+ box-shadow:
+ 0 0 100px
+ rgba(165,239,255,.75);
+
+ animation:
+  float 5s ease-in-out infinite;
+
+ cursor:pointer;
+}
+
+.planet:after{
+ content:"";
+
+ position:absolute;
+
+ inset:14%;
+
+ border:
+ 2px solid
+ rgba(255,255,255,.35);
+
+ border-radius:50%;
+
+ transform:
+  rotate(-18deg)
+  scaleX(1.45);
+}
+
+@keyframes float{
+ 50%{
+  transform:
+   translateY(-15px)
+   rotate(2deg);
+ }
+}
+
+/* =========================
+   MASCOT
+========================= */
+
+.mascot{
+ font-size:6rem;
+
+ animation:
+  bob 2.4s ease-in-out infinite;
+
+ filter:
+  drop-shadow(
+   0 15px 20px
+   rgba(0,0,0,.15)
+  );
+}
+
+@keyframes bob{
+ 50%{
+  transform:
+   translateY(-12px)
+   rotate(3deg);
+ }
+}
+
+/* =========================
+   GRID
+========================= */
+
+.grid{
+ display:grid;
+
+ grid-template-columns:
+  repeat(3,1fr);
+
+ gap:18px;
+
+ margin-top:30px;
+}
+
+.tile{
+ min-height:180px;
+
+ display:flex;
+
+ flex-direction:column;
+
+ justify-content:center;
+
+ align-items:center;
+
+ transition:.25s;
+}
+
+.tile:hover{
+ transform:
+  translateY(-8px)
+  rotate(-1deg);
+
+ background:
+  rgba(255,255,255,.2);
+}
+
+.tile b{
+ font-size:2.6rem;
+}
+
+/* =========================
+   SCANNER
+========================= */
+
+.scanner{
+ position:relative;
+
+ overflow:hidden;
+
+ border-radius:25px;
+}
+
+.scanner:after{
+ content:"";
+
+ position:absolute;
+
+ left:0;
+ right:0;
+
+ top:-20%;
+
+ height:3px;
+
+ background:white;
+
+ box-shadow:
+ 0 0 18px white;
+
+ animation:
+  scanline 2.2s linear infinite;
+}
+
+@keyframes scanline{
+ to{
+  top:120%;
+ }
+}
+
+.scanGrid{
+ display:grid;
+
+ grid-template-columns:
+ 1fr 1fr;
+
+ gap:12px;
+
+ margin-top:22px;
+}
+
+.stat{
+ padding:16px;
+
+ border:
+ 1px solid var(--line);
+
+ border-radius:18px;
+
+ background:
+  rgba(0,0,0,.1);
+}
+
+.stat b{
+ display:block;
+
+ font-size:1.6rem;
+}
+
+/* =========================
+   METER
+========================= */
+
+.meter{
+ height:18px;
+
+ border-radius:99px;
+
+ background:
+  rgba(0,0,0,.2);
+
+ overflow:hidden;
+
+ margin:25px 0;
+}
+
+.meter i{
+ display:block;
+
+ height:100%;
+
+ width:0;
+
+ background:white;
+
+ border-radius:inherit;
+
+ transition:
+ 1.8s
+ cubic-bezier(.2,.8,.2,1);
+}
+
+/* =========================
+   GAME
+========================= */
+
+.choices{
+ display:flex;
+
+ justify-content:center;
+
+ flex-wrap:wrap;
+
+ gap:12px;
+
+ margin-top:25px;
+}
+
+.choice{
+ padding:
+ 15px 20px;
+
+ border:
+ 1px solid var(--line);
+
+ background:
+  var(--glass);
+
+ color:white;
+
+ border-radius:18px;
+
+ cursor:pointer;
+
+ font-weight:800;
+
+ transition:.25s;
+}
+
+.choice:hover{
+ transform:
+  translateY(-4px);
+}
+
+/* =========================
+   FLOAT CARDS
+========================= */
+
+.floatCards{
+ display:grid;
+
+ grid-template-columns:
+  repeat(4,1fr);
+
+ gap:14px;
+
+ margin-top:28px;
+}
+
+.floatCard{
+ min-height:180px;
+
+ display:grid;
+
+ place-items:center;
+
+ padding:20px;
+
+ animation:
+  cardFloat 4s ease-in-out infinite;
+}
+
+.floatCard:nth-child(2){
+ animation-delay:-1s;
+}
+
+.floatCard:nth-child(3){
+ animation-delay:-2s;
+}
+
+.floatCard:nth-child(4){
+ animation-delay:-3s;
+}
+
+@keyframes cardFloat{
+ 50%{
+  transform:
+   translateY(-10px)
+   rotate(1deg);
+ }
+}
+
+/* =========================
+   SECRET
+========================= */
+
+.secret{
+ min-height:350px;
+
+ display:grid;
+
+ place-items:center;
+}
+
+.lock{
+ font-size:6rem;
+
+ animation:
+  lockPulse 1.5s infinite;
+}
+
+@keyframes lockPulse{
+ 50%{
+  transform:
+   scale(1.08)
+   rotate(-4deg);
+ }
+}
+
+/* =========================
+   LETTER
+========================= */
+
+.letter{
+ max-width:760px;
+
+ margin:auto;
+
+ text-align:left;
+
+ font-size:
+  clamp(
+   1.1rem,
+   3vw,
+   1.5rem
+  );
+
+ min-height:290px;
+}
+
+#typed{
+ white-space:pre-line;
+}
+
+/* =========================
+   FINAL
+========================= */
+
+.bigHeart{
+ font-size:8rem;
+
+ filter:
+  drop-shadow(
+   0 0 30px
+   rgba(255,255,255,.5)
+  );
+
+ animation:
+  heart 1.2s
+  ease-in-out infinite;
+}
+
+@keyframes heart{
+ 50%{
+  transform:scale(1.15);
+ }
+}
+
+#ending{
+ display:none;
+
+ margin-top:25px;
+}
+
+/* =========================
+   CONFETTI
+========================= */
+
+.confetti{
+ position:fixed;
+
+ top:-25px;
+
+ z-index:100;
+
+ width:10px;
+ height:18px;
+
+ animation:
+  fall 2.7s
+  linear forwards;
+}
+
+@keyframes fall{
+ to{
+  transform:
+   translateY(110vh)
+   rotate(900deg);
+
+  opacity:0;
+ }
+}
+
+/* =========================
+   ACHIEVEMENT
+========================= */
+
+.achievement{
+ position:fixed;
+
+ right:18px;
+ bottom:18px;
+
+ z-index:80;
+
+ max-width:290px;
+
+ padding:
+ 16px 18px;
+
+ background:
+  rgba(5,13,45,.85);
+
+ border:
+ 1px solid var(--line);
+
+ border-radius:18px;
+
+ backdrop-filter:
+  blur(15px);
+
+ transform:
+  translateY(140%);
+
+ transition:.5s;
+}
+
+.achievement.show{
+ transform:none;
+}
+
+/* =========================
+   SHAKE
+========================= */
+
+.shake{
+ animation:
+  shake .45s;
+}
+
+@keyframes shake{
+ 20%{transform:translateX(-10px)}
+ 40%{transform:translateX(10px)}
+ 60%{transform:translateX(-7px)}
+ 80%{transform:translateX(7px)}
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+ text-align:center;
+
+ padding:28px;
+
+ background:#030716;
+
+ opacity:.9;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:760px){
+
+ nav button{
+  padding:8px;
+  font-size:.7rem;
+ }
+
+ .topBtn{
+  top:62px;
+ }
+
+ .grid,
+ .floatCards,
+ .scanGrid{
+  grid-template-columns:1fr;
+ }
+
+ .card{
+  padding:22px;
+ }
+
+ .floatCard{
+  min-height:135px;
+ }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOADING SCREEN -->
+
+<div id="loader">
+
+ <div class="loaderBox">
+
+  <div class="loaderOrb">
+   🐧
+  </div>
+
+  <div
+   class="loaderText"
+   id="loaderText">
+
+   INITIALIZING CUTENESS...
+
+  </div>
+
+  <div class="loaderBar">
+
+   <i id="loaderBar"></i>
+
+  </div>
+
+ </div>
+
+</div>
+
+
+<!-- BACKGROUND -->
+
+<div id="stars"></div>
+
+<div id="particles"></div>
+
+
+<div
+ class="cloud"
+ style="
+  top:18%;
+  left:-25%;
+  animation-delay:-8s;
+ ">
+</div>
+
+
+<div
+ class="cloud"
+ style="
+  top:43%;
+  left:-45%;
+  transform:scale(.7);
+  animation-delay:-19s;
+ ">
+</div>
+
+
+<!-- NAV -->
+
+<nav id="nav">
+
+ <button
+  onclick="go(0)"
+  class="active">
+
+  01
+
+ </button>
+
+ <button onclick="go(1)">
+  02
+ </button>
+
+ <button onclick="go(2)">
+  03
+ </button>
+
+ <button onclick="go(3)">
+  04
+ </button>
+
+ <button onclick="go(4)">
+  05
+ </button>
+
+ <button onclick="go(5)">
+  06
+ </button>
+
+ <button onclick="go(6)">
+  07
+ </button>
+
+ <button onclick="go(7)">
+  08
+ </button>
+
+ <button onclick="go(8)">
+  09
+ </button>
+
+ <button onclick="go(9)">
+  10
+ </button>
+
+</nav>
+
+
+<button
+ class="topBtn"
+ onclick="toggleNight()">
+
+ 🌙 Night
+
+</button>
+
+
+<div
+ class="progress"
+ id="progress">
+
+ PART 01 / 10
+
+</div>
+
+
+<!-- =====================================================
+     PART 01
+===================================================== -->
+
+<section id="p1">
+
+ <div class="wrap reveal">
+
+  <div class="kicker">
+
+   A TOTALLY UNNECESSARY WEBSITE
+
+  </div>
+
+
+  <div class="planet">
+
+   <div class="mascot">
+
+    🐧
+
+   </div>
+
+  </div>
+
+
+  <h1>
+
+   สวัสดี<br>
+
+   คนน่ารัก
+
+  </h1>
+
+
+  <p>
+
+   เว็บนี้ไม่ได้มีอะไรหรอก…<br>
+
+   แค่มีคนอยากกวนคุณนิดหน่อย 🤏🏻
+
+  </p>
+
+
+  <button
+   class="cta"
+   onclick="
+    go(1);
+    burst(event);
+   ">
+
+   กดดูหน่อยดิ 👀
+
+  </button>
+
+ </div>
+
+</section>
+
+
+<!-- =====================================================
+     PART 02
+===================================================== -->
+
+<section id="p2">
+
+ <div class="wrap reveal">
+
+  <div class="kicker">
+
+   PART 02 · WHY AM I HERE?
+
+  </div>
+
+
+  <h2>
+
+   ทำไมต้องทำเว็บนี้?
+
+  </h2>
+
+
+  <div class="grid">
+
+
+   <div class="card tile">
+
+    <b>💬</b>
+
+    <strong>
+     ส่งแชตธรรมดา
+    </strong>
+
+    <small>
+     ธรรมดาเกินไป
+    </small>
+
+   </div>
+
+
+   <div class="card tile">
+
+    <b>😈</b>
+
+    <strong>
+     อยากกวน
+    </strong>
+
+    <small>
+     เหตุผลหลัก
+    </small>
+
+   </div>
+
+
+   <div class="card tile">
+
+    <b>💙</b>
+
+    <strong>
+     อยากให้ยิ้ม
+    </strong>
+
+    <small>
+     เหตุผลจริง
+    </small>
+
+   </div>
+
+
+  </div>
+
+
+  <button
+   class="cta"
+   onclick="go(2)">
+
+   โอเค แล้วกูมาทำอะไรเนี่ย? →
+
+  </button>
+
+ </div>
+
+</section>
+
+
+<!-- =====================================================
+     PART 03
+===================================================== -->
+
+<section id="p3">
+
+ <div class="wrap reveal">
+
+  <div class="kicker">
+
+   PART 03 · INVESTIGATION
+
+  </div>
+
+
+  <h2>
+
+   กำลังตรวจสอบคุณ...
+
+  </h2>
+
+
+  <div
+   class="card scanner">
+
+
+   <div
+    style="font-size:5rem">
+
+    🕵🏻‍♂️
+
+   </div>
+
+
+   <h3>
+
+    FACE / VIBE SCAN
+
+   </h3>
+
+
+   <div class="scanGrid">
+
+
+    <div class="stat">
+
+     <span>
+      ความน่ารัก
+     </span>
+
+     <b id="statCute">
+      ---
+     </b>
+
+    </div>
+
+
+    <div class="stat">
+
+     <span>
+      ความกวน
+     </span>
+
+     <b id="statChaos">
+      ---
+     </b>
+
+    </div>
+
+
+    <div class="stat">
+
+     <span>
+      ความน่าเอ็นดู
+     </span>
+
+     <b id="statLove">
+      ---
+     </b>
+
+    </div>
+
+
+    <div class="stat">
+
+     <span>
+      อันตรายต่อหัวใจ
+     </span>
+
+     <b id="statDanger">
+      ---
+     </b>
+
+    </div>
+
+
+   </div>
+
+
+   <button
+    class="cta"
+    onclick="runScan()">
+
+    เริ่มสแกน 🔍
+
+   </button>
+
+
+   <h3 id="scanVerdict"></h3>
+
+
+  </div>
+
+
+  <button
+   class="cta"
+   onclick="go(3)">
+
+   ผลเป็นไง? →
+
+  </button>
+
+ </div>
+
+</section>
+
+
+<!-- =====================================================
+     PART 04
+===================================================== -->
+
+<section id="p4">
+
+ <div class="wrap reveal">
+
+  <div class="kicker">
+
+   PART 04 · SYSTEM OVERLOAD
+
+  </div>
+
+
+  <h2>
+
+   ระดับความน่ารักของคุณ
+
+  </h2>
+
+
+  <div
+   class="card"
+   id="cuteCard">
+
+
+   <div
+    style="font-size:5rem">
+
+    🫵🏻
+
+   </div>
+
+
+   <div class="meter">
+
+    <i id="meter"></i>
+
+   </div>
+
+
+   <h3 id="meterText">
+
+    กำลังวิเคราะห์...
+
+   </h3>
+
+
+   <button
+    class="cta"
+    onclick="scanCute()">
+
+    สแกนอีกครั้ง 🔍
+
+   </button>
+
+
+  </div>
+
+
+  <p id="scanResult"></p>
+
+
+  <button
+   class="cta"
+   onclick="go(4)">
+
+   ต่อไป →
+
+  </button>
+
+ </div>
+
+</section>
+
+
+<!-- =====================================================
+     PART 05
+===================================================== -->
+
+<section id="p5">
+
+ <div class="wrap reveal">
+
+  <div class="kicker">
+
+   PART 05 · MINI GAME
+
+  </div>
+
+
+  <h2>
+
+   ตอบคำถามสำคัญ
+
+  </h2>
+
+
+  <div class="card">
+
+   <p>
+
+    คิดว่าเหตุผลจริง ๆ
+    ที่ทำเว็บนี้คืออะไร?
+
+   </p>
+
+
+   <div class="choices">
+
+
+    <button
+     class="choice"
+     onclick="answer(0)">
+
+     เพราะว่าง 😐
+
+    </button>
+
+
+    <button
+     class="choice"
+     onclick="answer(1)">
+
+     เพราะอยากกวน 😂
+
+    </button>
+
+
+    <button
+     class="choice"
+     onclick="answer(2)">
+
+     เพราะมีคนหนึ่ง
+     น่ารักเกินไป 💙
+
+    </button>
+
+
+    <button
+     class="choice"
+     onclick="answer(3)">
+
+     ระบบสุ่ม 🤖
+
+    </button>
+
+
+   </div>
+
+
+   <h3 id="answer"></h3>
+
+
+  </div>
+
+
+  <button
+   class="cta"
+   onclick="go(5)">
+
+   มีอะไรจะบอกอีก →
+
+  </button>
+
+ </div>
+
+</section>
+
+
+<!-- =====================================================
+     PART 06
+===================================================== -->
+
+<section id="p6">
+
+ <div class="wrap reveal">
+
+  <div class="kicker">
+
+   PART 06 · LITTLE THINGS
+
+  </div>
+
+
+  <h2>
+
+   เออ... เริ่มพูดจริงละนะ
+
+  </h2>
+
+
+  <p>
+
+   บางอย่างไม่ต้องมีเหตุผลเยอะก็ได้
+
+  </p>
+
+
+  <div class="floatCards">
+
+
+   <div class="card floatCard">
+
+    💬<br>
+
+    ชอบเวลาที่เธอตอบแชต
+
+   </div>
+
+
+   <div class="card floatCard">
+
+    😂<br>
+
+    ชอบเวลาที่เธอกวนกลับ
+
+   </div>
+
+
+   <div class="card floatCard">
+
+    😊<br>
+
+    ชอบเวลาที่เธอยิ้ม
+
+   </div>
+
+
+   <div class="card floatCard">
+
+    💙<br>
+
+    และชอบที่เธอเป็นเธอ
+
+   </div>
+
+
+  </div>
+
+
+  <button
+   class="cta"
+   onclick="go(6)">
+
+   มีอะไรลับกว่านี้อีกไหม? 👀
+
+  </button>
+
+ </div>
+
+</section>
+
+
+<!-- =====================================================
+     PART 07
+===================================================== -->
+
+<section id="p7">
+
+ <div class="wrap reveal">
+
+  <div class="kicker">
+
+   PART 07 · SECRET LEVEL
+
+  </div>
+
+
+  <div
+   class="card secret">
+
+
+   <div>
+
+
+    <div
+     class="lock"
+     id="lock">
+
+     🔒
+
+    </div>
+
+
+    <h2>
+
+     SECRET LEVEL
+
+    </h2>
+
+
+    <p id="secretText">
+
+     มีบางอย่างซ่อนอยู่<br>
+
+     แต่เขียนไว้ว่า “อย่ากด”
+
+    </p>
+
+
+    <button
+     class="cta"
+     id="secretBtn"
+     onclick="secretLevel()">
+
+     อย่ากด 🚫
+
+    </button>
+
+
+   </div>
+
+
+  </div>
+
+
+  <button
+   class="cta"
+   onclick="go(7)">
+
+   ไปต่อ →
+
+  </button>
+
+ </div>
+
+</section>
+
+
+<!-- =====================================================
+     PART 08
+===================================================== -->
+
+<section id="p8">
+
+ <div class="wrap reveal">
+
+  <div class="kicker">
+
+   PART 08 · SERIOUS MODE
+
+  </div>
+
+
+  <h2>
+
+   เอาจริงละนะ
+
+  </h2>
+
+
+  <div
+   class="card letter">
+
+   <div id="typed"></div>
+
+  </div>
+
+
+  <button
+   class="cta"
+   onclick="typeLetter()">
+
+   อ่านอีกครั้ง 💌
+
+  </button>
+
+
+  <button
+   class="cta"
+   onclick="go(8)">
+
+   มีคำถามสุดท้าย →
+
+  </button>
+
+ </div>
+
+</section>
+
+
+<!-- =====================================================
+     PART 09
+===================================================== -->
+
+<section id="p9">
+
+ <div class="wrap reveal">
+
+  <div class="kicker">
+
+   PART 09 · ONE LAST QUESTION
+
+  </div>
+
+
+  <h2>
+
+   ก่อนจบเกม...
+
+  </h2>
+
+
+  <div class="card">
+
+
+   <p
+    style="font-size:1.4rem">
+
+    มีคำถามหนึ่งข้อ<br>
+
+    <b>
+     อยากให้เรากวนเธอ
+     ไปอีกนาน ๆ ไหม?
+    </b>
+
+   </p>
+
+
+   <div
+    id="questionArea"
+    style="
+     min-height:130px;
+     position:relative;
+    ">
+
+
+    <button
+     class="cta"
+     onclick="yesAnswer()">
+
+     เอาสิ 💙
+
+    </button>
+
+
+    <button
+     class="cta secondary"
+     id="noBtn"
+     onmouseenter="runAway()"
+     ontouchstart="runAway()">
+
+     ไม่เอา 😐
+
+    </button>
+
+
+   </div>
+
+
+   <h3 id="finalQuestion"></h3>
+
+
+  </div>
+
+
+  <button
+   class="cta"
+   onclick="go(9)">
+
+   ไป Final Boss →
+
+  </button>
+
+ </div>
+
+</section>
+
+
+<!-- =====================================================
+     PART 10
+===================================================== -->
+
+<section id="p10">
+
+ <div class="wrap reveal">
+
+  <div class="kicker">
+
+   FINAL BOSS · MISSION COMPLETE
+
+  </div>
+
+
+  <div class="bigHeart">
+
+   💙
+
+  </div>
+
+
+  <h2>
+
+   กดตรงนี้ถ้าคุณยิ้มแล้ว
+
+  </h2>
+
+
+  <p>
+
+   ถ้ายังไม่ยิ้ม… ก็กดได้<br>
+
+   ผมถือว่าเป็นการให้โอกาส 😌
+
+  </p>
+
+
+  <button
+   class="cta"
+   onclick="finale()">
+
+   กดเลย 💙
+
+  </button>
+
+
+  <div
+   id="ending"
+   class="card">
+
+
+   <h2>
+
+    เย้! 🎉
+
+   </h2>
+
+
+   <p>
+
+    ภารกิจสำเร็จ
+
+    <br><br>
+
+    <b>
+     อย่างน้อยวันนี้
+     ก็ทำให้คนน่ารักยิ้มได้หนึ่งคน
+    </b>
+
+    <br><br>
+
+    ไว้ให้เรากวนคุณไปนาน ๆ
+    ได้ไหม :)
+
+   </p>
+
+
+   <button
+    class="cta"
+    onclick="go(0)">
+
+    ↻ เล่นใหม่
+
+   </button>
+
+
+  </div>
+
+ </div>
+
+</section>
+
+
+<div
+ class="achievement"
+ id="achievement">
+
+ 🏆 <b>Achievement Unlocked</b>
+
+ <br>
+
+ <span id="achievementText">
+
+  ความลับถูกค้นพบ
+
+ </span>
+
+</div>
+
+
+<footer>
+
+ made with unnecessary amounts
+ of effort & 💙
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+const sections =
+ [...document.querySelectorAll("section")];
+
+const nav =
+ [...document.querySelectorAll("nav button")];
+
+const progress =
+ document.getElementById("progress");
+
+let typedOnce=false;
+
+let secretClicks=0;
+
+
+/* =====================================================
+   LOADER
+===================================================== */
+
+let load=0;
+
+const loaderTimer=setInterval(()=>{
+
+ load +=
+  Math.floor(
+   Math.random()*14
+  )+7;
+
+
+ if(load>=100){
+
+  load=100;
+
+  clearInterval(
+   loaderTimer
+  );
+
+  document.getElementById(
+   "loaderText"
+  ).textContent=
+   "WARNING: TOO CUTE";
+
+
+  setTimeout(()=>{
+
+   document
+    .getElementById("loader")
+    .classList
+    .add("hide");
+
+  },650);
+
+ }
+
+
+ document
+  .getElementById("loaderBar")
+  .style.width=
+   load+"%";
+
+
+},180);
+
+
+/* =====================================================
+   STARS
+===================================================== */
+
+for(let i=0;i<110;i++){
+
+ const s =
+  document.createElement("i");
+
+ s.className =
+  "star"+
+  (
+   Math.random()>.88
+   ? " big"
+   : ""
+  );
+
+ s.style.left =
+  Math.random()*100+"%";
+
+ s.style.top =
+  Math.random()*100+"%";
+
+ s.style.animationDelay =
+  Math.random()*3+"s";
+
+
+ document
+  .getElementById("stars")
+  .appendChild(s);
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function go(i){
+
+ sections[i]
+  .scrollIntoView({
+   behavior:"smooth"
+  });
+
+ burst();
+
+}
+
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+function burst(e){
+
+ const x =
+  e?.clientX ??
+  innerWidth/2;
+
+ const y =
+  e?.clientY ??
+  innerHeight/2;
+
+
+ for(let i=0;i<16;i++){
+
+  const s =
+   document.createElement("span");
+
+
+  s.textContent =
+   Math.random()>.5
+   ? "💙"
+   : "✦";
+
+
+  s.style.position =
+   "fixed";
+
+  s.style.left =
+   x+"px";
+
+  s.style.top =
+   y+"px";
+
+  s.style.zIndex =
+   "100";
+
+  s.style.pointerEvents =
+   "none";
+
+  s.style.fontSize =
+   (10+Math.random()*18)+"px";
+
+
+  s.animate(
+
+   [
+    {
+     transform:
+      "translate(0,0) scale(1)",
+     opacity:1
+    },
+
+    {
+     transform:
+      `
+      translate(
+       ${(Math.random()-.5)*240}px,
+       ${(Math.random()-.5)*200}px
+      )
+      scale(0)
+      `,
+     opacity:0
+    }
+   ],
+
+   {
+    duration:
+     800+Math.random()*500,
+
+    easing:
+     "ease-out"
+   }
+
+  ).onfinish=
+   ()=>s.remove();
+
+
+  document.body.appendChild(s);
+
+ }
+
+}
+
+
+/* =====================================================
+   NIGHT
+===================================================== */
+
+function toggleNight(){
+
+ document
+  .body
+  .classList
+  .toggle("night");
+
+}
+
+
+/* =====================================================
+   INVESTIGATION
+===================================================== */
+
+function runScan(){
+
+ const vals=[
+
+  [
+   "99.99%",
+   "87.42%",
+   "ERROR",
+   "DANGEROUS"
+  ],
+
+  [
+   "100%",
+   "93.18%",
+   "OVERLOAD",
+   "VERY DANGEROUS"
+  ],
+
+  [
+   "∞%",
+   "???",
+   "SYSTEM ERROR",
+   "RUN"
+  ]
+
+ ];
+
+
+ const v =
+  vals[
+   Math.floor(
+    Math.random()*vals.length
+   )
+  ];
+
+
+ document.getElementById(
+  "statCute"
+ ).textContent=v[0];
+
+
+ document.getElementById(
+  "statChaos"
+ ).textContent=v[1];
+
+
+ document.getElementById(
+  "statLove"
+ ).textContent=v[2];
+
+
+ document.getElementById(
+  "statDanger"
+ ).textContent=v[3];
+
+
+ document.getElementById(
+  "scanVerdict"
+ ).textContent=
+  "RESULT: บุคคลนี้อันตรายต่อหัวใจ 💀";
+
+
+ burst();
+
+}
+
+
+/* =====================================================
+   CUTENESS
+===================================================== */
+
+function scanCute(){
+
+ const card =
+  document.getElementById(
+   "cuteCard"
+  );
+
+
+ card.classList.remove(
+  "shake"
+ );
+
+
+ void card.offsetWidth;
+
+
+ card.classList.add(
+  "shake"
+ );
+
+
+ document.getElementById(
+  "meter"
+ ).style.width=
+  (99+Math.random())+"%";
+
+
+ document.getElementById(
+  "meterText"
+ ).textContent=
+  "ERROR: เกินค่าที่ระบบรองรับ 💀";
+
+
+ document.getElementById(
+  "scanResult"
+ ).textContent=
+  "สรุป: ระบบขอรีสตาร์ตตัวเอง เพราะรับมือความน่ารักไม่ไหว";
+
+
+ burst();
+
+}
+
+
+/* =====================================================
+   MINI GAME
+===================================================== */
+
+function answer(i){
+
+ const a=[
+
+  "ก็รู้อยู่แล้วว่าว่าง 😭",
+
+  "ถูกครึ่งหนึ่ง… แต่จริง ๆ อยากกวนเป็นพิเศษ 😂",
+
+  "ถูกต้องที่สุด 💙 ระบบให้ผ่านแบบไม่มีข้อโต้แย้ง",
+
+  "ระบบสุ่ม แต่ดันตอบถูกเฉย 🤖"
+
+ ];
+
+
+ document.getElementById(
+  "answer"
+ ).textContent=
+  a[i];
+
+
+ if(i===2){
+
+  unlock(
+   "ตอบถูกแบบน่ารักเกินไป"
+  );
+
+ }
+
+
+ burst();
+
+}
+
+
+/* =====================================================
+   SECRET LEVEL
+===================================================== */
+
+function secretLevel(){
+
+ secretClicks++;
+
+
+ const lock =
+  document.getElementById(
+   "lock"
+  );
+
+ const text =
+  document.getElementById(
+   "secretText"
+  );
+
+ const btn =
+  document.getElementById(
+   "secretBtn"
+  );
+
+
+ if(secretClicks===1){
+
+  lock.textContent="😐";
+
+  text.innerHTML=
+   "บอกแล้วว่าอย่ากด<br>"+
+   "แต่โอเค... ไหน ๆ ก็มาแล้ว";
+
+  btn.textContent=
+   "กดอีกที (ถ้าแน่จริง)";
+
+ }
+
+
+ else if(secretClicks===2){
+
+  lock.textContent="👀";
+
+  text.innerHTML=
+   "ยังจะกดอีกเหรอ<br>"+
+   "เออ ตามใจ";
+
+  btn.textContent=
+   "อีกทีดิ";
+
+ }
+
+
+ else{
+
+  lock.textContent="🔓";
+
+  text.innerHTML=
+   "<b>SECRET UNLOCKED</b><br><br>"+
+   "ขอบคุณนะที่อยู่ดูมาถึงตรงนี้ 💙";
+
+  btn.textContent=
+   "ภารกิจลับสำเร็จ ✓";
+
+  btn.disabled=true;
+
+
+  unlock(
+   "SECRET LEVEL — ความลับถูกค้นพบ"
+  );
+
+ }
+
+
+ burst();
+
+}
+
+
+/* =====================================================
+   ACHIEVEMENT
+===================================================== */
+
+function unlock(message){
+
+ document.getElementById(
+  "achievementText"
+ ).textContent=
+  message;
+
+
+ const a =
+  document.getElementById(
+   "achievement"
+  );
+
+
+ a.classList.add(
+  "show"
+ );
+
+
+ setTimeout(
+  ()=>{
+   a.classList.remove(
+    "show"
+   );
+  },
+  3500
+ );
+
+}
+
+
+/* =====================================================
+   LETTER
+===================================================== */
+
+const msg=
+`จริง ๆ แล้วที่ทำทั้งหมดนี่
+ก็แค่อยากบอกว่า…
+
+เราชอบเวลาที่ได้คุยกับเธอนะ
+
+ไม่ได้อยากทำอะไรหวือหวา
+แค่อยากมีเหตุผลเล็ก ๆ ให้เธอยิ้ม
+
+แล้วก็อยากกวนเธอไปเรื่อย ๆ 😌
+
+ถ้าเว็บนี้ทำให้เธอยิ้มได้สักนิด
+ถือว่าคนทำชนะแล้ว 💙`;
+
+
+function typeLetter(){
+
+ const el =
+  document.getElementById(
+   "typed"
+  );
+
+
+ el.textContent="";
+
+
+ let i=0;
+
+
+ const timer =
+  setInterval(()=>{
+
+   el.textContent +=
+    msg[i++] || "";
+
+
+   if(i>msg.length){
+
+    clearInterval(timer);
+
+   }
+
+  },28);
+
+
+ typedOnce=true;
+
+}
+
+
+/* =====================================================
+   FINAL QUESTION
+===================================================== */
+
+function yesAnswer(){
+
+ document.getElementById(
+  "finalQuestion"
+ ).textContent=
+  "GOOD CHOICE. 😌💙";
+
+
+ unlock(
+  "อนุญาตให้กวนต่อได้แล้ว"
+ );
+
+
+ burst();
+
+}
+
+
+function runAway(){
+
+ const b =
+  document.getElementById(
+   "noBtn"
+  );
+
+
+ const parent =
+  b.parentElement;
+
+
+ const maxX =
+  Math.max(
+   0,
+   parent.clientWidth-
+   b.offsetWidth-20
+  );
+
+
+ b.style.position=
+  "absolute";
+
+
+ b.style.left=
+  Math.random()*maxX+"px";
+
+
+ b.style.top=
+  Math.random()*70+"px";
+
+}
+
+
+/* =====================================================
+   FINALE
+===================================================== */
+
+function finale(){
+
+ document.getElementById(
+  "ending"
+ ).style.display=
+  "block";
+
+
+ for(let i=0;i<120;i++){
+
+  const c =
+   document.createElement(
+    "div"
+   );
+
+
+  c.className=
+   "confetti";
+
+
+  c.textContent =
+   Math.random()>.55
+   ? "💙"
+   : Math.random()>.5
+   ? "✦"
+   : "✨";
+
+
+  c.style.left=
+   Math.random()*100+"vw";
+
+
+  c.style.animationDelay=
+   Math.random()*.9+"s";
+
+
+  c.style.fontSize=
+   (10+Math.random()*20)+"px";
+
+
+  document.body.appendChild(c);
+
+
+  setTimeout(
+   ()=>c.remove(),
+   3500
+  );
+
+ }
+
+
+ unlock(
+  "MISSION COMPLETE — ทำให้คนน่ารักยิ้มแล้ว"
+ );
+
+
+ burst();
+
+}
+
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+
+const observer =
+ new IntersectionObserver(
+
+  entries=>{
+
+   entries.forEach(
+    entry=>{
+
+     if(
+      !entry.isIntersecting
+     )
+      return;
+
+
+     entry.target
+      .querySelector(
+       ".reveal"
+      )
+      ?.classList
+      .add("show");
+
+
+     const i =
+      sections.indexOf(
+       entry.target
+      );
+
+
+     nav.forEach(
+      (n,j)=>{
+
+       n.classList.toggle(
+        "active",
+        i===j
+       );
+
+      }
+     );
+
+
+     progress.textContent=
+      `PART ${String(i+1).padStart(2,"0")} / 10`;
+
+
+     if(
+      i===2 &&
+      !entry.target.dataset.scanned
+     ){
+
+      entry.target.dataset.scanned="1";
+
+      setTimeout(
+       runScan,
+       500
+      );
+
+     }
+
+
+     if(
+      i===3 &&
+      !entry.target.dataset.scanned
+     ){
+
+      entry.target.dataset.scanned="1";
+
+      setTimeout(
+       scanCute,
+       500
+      );
+
+     }
+
+
+     if(
+      i===7 &&
+      !typedOnce
+     ){
+
+      setTimeout(
+       typeLetter,
+       600
+      );
+
+     }
+
+    }
+   );
+
+  },
+
+  {
+   threshold:.45
+  }
+
+ );
+
+
+sections.forEach(
+ s=>observer.observe(s)
+);
+
+
+/* =====================================================
+   CLICK EFFECT
+===================================================== */
+
+document.addEventListener(
+ "click",
+ e=>{
+
+  if(
+   !e.target.closest("button")
+  ){
+
+   burst(e);
+
+  }
+
+ }
+);
+
+
+/* =====================================================
+   PENGUIN EASTER EGG
+===================================================== */
+
+let penguinClicks=0;
+
+
+document
+ .querySelector(".planet")
+ .addEventListener(
+  "click",
+  ()=>{
+
+   penguinClicks++;
+
+
+   if(
+    penguinClicks>=5
+   ){
+
+    unlock(
+     "PENGUIN ENJOYER 🐧"
+    );
+
+
+    penguinClicks=0;
+
+   }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
