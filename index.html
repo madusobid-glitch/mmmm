@@ -2,31 +2,22 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<meta name="theme-color" content="#020617">
-<title>PROJECT BLUE-LOVE // V2</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>PROJECT: MAYBE YOU 💙</title>
 
 <style>
-/* =========================================================
-   BLUE-LOVE V2
-   Cinematic / Sci-Fi / Game / Anime Ending
-========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Orbitron:wght@400;600;800&display=swap');
 
 :root{
-  --blue:#38bdf8;
-  --cyan:#67e8f9;
-  --ice:#dffcff;
-  --deep:#020617;
-  --navy:#07152e;
-  --muted:#8da7c4;
-  --glass:rgba(4,17,39,.62);
-  --line:rgba(103,232,249,.24);
-  --pink:#c084fc;
-  --danger:#7dd3fc;
+  --blue:#55d9ff;
+  --blue2:#168cff;
+  --deep:#020817;
+  --cyan:#9ff4ff;
+  --white:#f5fdff;
+  --pink:#ff7bd5;
+  --purple:#9c7cff;
+  --mx:50%;
+  --my:50%;
 }
 
 *{
@@ -37,2215 +28,2064 @@
 
 html{
   scroll-behavior:smooth;
+  background:#01040c;
 }
 
 body{
-  background:#01030a;
-  color:#fff;
-  font-family:"Kanit",sans-serif;
-  overflow-x:hidden;
-  cursor:default;
-}
-
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:-20;
-  background:
-    radial-gradient(circle at 15% 20%,rgba(56,189,248,.12),transparent 27%),
-    radial-gradient(circle at 85% 75%,rgba(99,102,241,.12),transparent 30%),
-    linear-gradient(135deg,#01030a,#020b1b 50%,#01030a);
-}
-
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:9000;
-  opacity:.025;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background:#01040c;
+  color:white;
+  font-family:Kanit,sans-serif;
+  overflow:hidden;
+  min-height:100vh;
 }
 
 button{
   font-family:inherit;
 }
 
-canvas{
-  display:block;
-}
+/* =========================================================
+   GLOBAL FX
+========================================================= */
 
-#space{
+#fx{
   position:fixed;
   inset:0;
-  z-index:-10;
   pointer-events:none;
+  z-index:9999;
 }
 
-#cursorGlow{
+.noise{
   position:fixed;
-  width:360px;
-  height:360px;
-  border-radius:50%;
-  transform:translate(-50%,-50%);
+  inset:0;
   pointer-events:none;
-  z-index:8999;
-  background:radial-gradient(circle,rgba(56,189,248,.14),transparent 67%);
-  mix-blend-mode:screen;
+  z-index:9998;
+  opacity:.045;
+  background-image:
+  repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,.5) 0px,
+    rgba(255,255,255,.5) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  mix-blend-mode:overlay;
 }
 
-#cursorDot{
+.vignette{
   position:fixed;
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:#dffcff;
-  box-shadow:0 0 15px #67e8f9;
-  transform:translate(-50%,-50%);
+  inset:0;
+  z-index:9997;
   pointer-events:none;
-  z-index:10000;
+  background:
+    radial-gradient(circle at center,
+      transparent 30%,
+      rgba(0,0,0,.15) 55%,
+      rgba(0,0,0,.75) 100%);
+}
+
+.scanlines{
+  position:fixed;
+  inset:0;
+  z-index:9996;
+  pointer-events:none;
+  opacity:.08;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 3px,
+      rgba(70,220,255,.18) 4px
+    );
+}
+
+#particles{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+}
+
+.particle{
+  position:absolute;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:#a8f5ff;
+  box-shadow:0 0 12px #55d9ff;
+  animation:floatParticle linear infinite;
+}
+
+@keyframes floatParticle{
+  from{
+    transform:translate3d(0,110vh,0) scale(.3);
+    opacity:0;
+  }
+  15%{opacity:1}
+  85%{opacity:.7}
+  to{
+    transform:translate3d(var(--drift),-15vh,0) scale(1.4);
+    opacity:0;
+  }
 }
 
 /* =========================================================
-   GLOBAL UI
+   LOADING
 ========================================================= */
 
-.topbar{
+#loading{
   position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:64px;
-  z-index:8000;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 28px;
-  background:rgba(1,6,18,.48);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(103,232,249,.1);
-}
-
-.brand{
-  font-family:"Orbitron",sans-serif;
-  font-size:11px;
-  letter-spacing:4px;
-  color:var(--cyan);
-}
-
-.status{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:#68829e;
-  font:10px "Orbitron",sans-serif;
-  letter-spacing:2px;
-}
-
-.statusDot{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:#67e8f9;
-  box-shadow:0 0 12px #67e8f9;
-  animation:blink .9s infinite;
-}
-
-@keyframes blink{
-  50%{opacity:.2}
-}
-
-.music{
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  border:1px solid var(--line);
-  color:#fff;
-  background:rgba(56,189,248,.08);
-  cursor:pointer;
-}
-
-.music.active{
-  animation:musicSpin 4s linear infinite;
-}
-
-@keyframes musicSpin{
-  to{transform:rotate(360deg)}
-}
-
-.progress{
-  position:absolute;
-  left:0;
-  bottom:-1px;
-  height:2px;
-  width:0;
-  background:linear-gradient(90deg,#38bdf8,#67e8f9,#fff,#38bdf8);
-  box-shadow:0 0 18px #38bdf8;
-}
-
-section{
-  min-height:100svh;
-  position:relative;
+  inset:0;
+  z-index:10000;
+  background:
+    radial-gradient(circle at center,#062f55 0%,#020817 38%,#000 100%);
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:110px 7%;
+  flex-direction:column;
   overflow:hidden;
 }
 
-.container{
-  width:min(1200px,100%);
-  margin:auto;
-  position:relative;
-  z-index:5;
-}
-
-.kicker{
-  font:11px "Orbitron",sans-serif;
-  letter-spacing:5px;
-  color:var(--cyan);
-  margin-bottom:20px;
-}
-
-.title{
-  font-size:clamp(45px,8vw,105px);
-  line-height:.94;
-  letter-spacing:-4px;
-  font-weight:800;
-}
-
-.gradient{
-  background:linear-gradient(
-    100deg,
-    #fff,
-    #67e8f9,
-    #38bdf8,
-    #c084fc,
-    #fff
-  );
-  background-size:300%;
-  -webkit-background-clip:text;
-  color:transparent;
-  animation:gradient 6s linear infinite;
-}
-
-@keyframes gradient{
-  to{background-position:300%}
-}
-
-.subtitle{
-  max-width:680px;
-  color:var(--muted);
-  line-height:1.95;
-  font-size:17px;
-  margin-top:26px;
-}
-
-.btn{
-  position:relative;
-  margin-top:34px;
-  padding:16px 28px;
-  color:#fff;
-  border:1px solid rgba(103,232,249,.45);
-  background:linear-gradient(
-    135deg,
-    rgba(56,189,248,.2),
-    rgba(37,99,235,.06)
-  );
-  border-radius:14px;
-  cursor:pointer;
-  overflow:hidden;
-  transition:.35s;
-}
-
-.btn:hover{
-  transform:translateY(-4px) scale(1.03);
-  box-shadow:0 0 40px rgba(56,189,248,.25);
-}
-
-.btn::after{
+#loading::before{
   content:"";
   position:absolute;
-  top:0;
-  left:-120%;
-  width:80%;
-  height:100%;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.3),
-    transparent
-  );
-  transform:skewX(-20deg);
-}
-
-.btn:hover::after{
-  left:150%;
-  transition:.8s;
-}
-
-.reveal{
-  opacity:0;
-  transform:translateY(70px) scale(.97);
-  filter:blur(10px);
-  transition:
-    opacity 1s cubic-bezier(.2,.8,.2,1),
-    transform 1s cubic-bezier(.2,.8,.2,1),
-    filter 1s;
-}
-
-.reveal.visible{
-  opacity:1;
-  transform:none;
-  filter:none;
-}
-
-/* =========================================================
-   SCREEN EFFECTS
-========================================================= */
-
-#flash{
-  position:fixed;
-  inset:0;
-  z-index:9500;
-  pointer-events:none;
-  opacity:0;
-  background:#fff;
-}
-
-#flash.fire{
-  animation:flash .55s ease;
-}
-
-@keyframes flash{
-  0%{opacity:0}
-  15%{opacity:.95}
-  100%{opacity:0}
-}
-
-#blackout{
-  position:fixed;
-  inset:0;
-  z-index:9400;
-  pointer-events:none;
-  background:#000;
-  opacity:0;
-}
-
-#blackout.active{
-  animation:blackout .9s ease;
-}
-
-@keyframes blackout{
-  0%,20%{opacity:0}
-  40%,65%{opacity:1}
-  100%{opacity:0}
-}
-
-#glitch{
-  position:fixed;
-  inset:0;
-  z-index:9300;
-  pointer-events:none;
-  opacity:0;
-  mix-blend-mode:screen;
+  inset:-30%;
   background:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0 3px,
-      rgba(103,232,249,.08) 4px
+    conic-gradient(
+      from 0deg,
+      transparent,
+      rgba(50,220,255,.3),
+      transparent 25%,
+      rgba(140,90,255,.2),
+      transparent 55%
     );
+  animation:loadingSpin 2s linear infinite;
 }
 
-#glitch.fire{
-  animation:glitch .55s steps(2,end);
-}
-
-@keyframes glitch{
-  0%{opacity:0;transform:none}
-  20%{opacity:1;transform:translate(9px,-4px) skewX(2deg)}
-  30%{opacity:.4;transform:translate(-12px,7px)}
-  45%{opacity:1;transform:translate(5px,2px) skewX(-3deg)}
-  70%{opacity:.6;transform:translate(-4px,-3px)}
-  100%{opacity:0}
-}
-
-/* =========================================================
-   PART 01 — CINEMATIC
-========================================================= */
-
-#part1{
-  background:
-    radial-gradient(circle at 50% 50%,rgba(56,189,248,.09),transparent 35%);
-}
-
-.letterbox{
-  position:absolute;
-  left:0;
-  right:0;
-  height:11vh;
-  background:#000;
-  z-index:3;
-}
-
-.letterbox.top{top:0}
-.letterbox.bottom{bottom:0}
-
-.movieLight{
-  position:absolute;
-  width:35vw;
-  height:150vh;
-  top:-20vh;
-  left:50%;
-  transform:translateX(-50%) rotate(18deg);
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(103,232,249,.09),
-    transparent
-  );
-  filter:blur(20px);
-  animation:movieBeam 7s ease-in-out infinite;
-}
-
-@keyframes movieBeam{
-  0%,100%{left:15%}
-  50%{left:85%}
-}
-
-.hero{
-  text-align:center;
-}
-
-.bootText{
-  min-height:20px;
-  font:11px monospace;
-  color:#67e8f9;
-  letter-spacing:2px;
-}
-
-.movieTag{
-  margin:28px 0;
-  font:9px "Orbitron",sans-serif;
-  letter-spacing:7px;
-  color:#66809b;
-}
-
-.hero .title{
-  font-family:"Orbitron",sans-serif;
-  text-transform:uppercase;
-  text-shadow:0 0 70px rgba(56,189,248,.2);
-}
-
-.cameraFrame{
-  position:absolute;
-  inset:14%;
-  border:1px solid rgba(103,232,249,.12);
-  pointer-events:none;
-}
-
-.cameraFrame::before,
-.cameraFrame::after{
-  content:"";
-  position:absolute;
-  width:50px;
-  height:50px;
-  border-color:rgba(103,232,249,.5);
-  border-style:solid;
-}
-
-.cameraFrame::before{
-  top:-1px;
-  left:-1px;
-  border-width:2px 0 0 2px;
-}
-
-.cameraFrame::after{
-  right:-1px;
-  bottom:-1px;
-  border-width:0 2px 2px 0;
-}
-
-.sceneCounter{
-  position:absolute;
-  right:30px;
-  bottom:35px;
-  font:9px monospace;
-  color:#66809b;
-}
-
-/* =========================================================
-   PART 02 — TERMINAL
-========================================================= */
-
-#part2{
-  background:
-    linear-gradient(rgba(3,15,31,.8),rgba(2,7,18,.95)),
-    repeating-linear-gradient(
-      90deg,
-      transparent 0 80px,
-      rgba(56,189,248,.025) 81px
-    );
-}
-
-.terminalWrap{
-  display:grid;
-  grid-template-columns:1fr 1.7fr;
-  gap:45px;
-  align-items:center;
-}
-
-.radar{
-  width:min(360px,80vw);
-  aspect-ratio:1;
-  margin:auto;
-  border-radius:50%;
-  border:1px solid rgba(103,232,249,.25);
-  position:relative;
-  background:
-    repeating-radial-gradient(
-      circle,
-      transparent 0 40px,
-      rgba(103,232,249,.07) 41px 42px
-    );
-  overflow:hidden;
-}
-
-.radar::before{
-  content:"";
-  position:absolute;
-  inset:50%;
-  width:50%;
-  height:1px;
-  transform-origin:left;
-  background:linear-gradient(90deg,#67e8f9,transparent);
-  box-shadow:0 0 15px #67e8f9;
-  animation:radarSweep 3s linear infinite;
-}
-
-.radar::after{
-  content:"";
-  position:absolute;
-  inset:15%;
-  border:1px dashed rgba(103,232,249,.15);
-  border-radius:50%;
-}
-
-@keyframes radarSweep{
+@keyframes loadingSpin{
   to{transform:rotate(360deg)}
 }
 
-.radarDot{
-  position:absolute;
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:#fff;
-  box-shadow:0 0 20px #67e8f9;
-}
-
-.radarDot.one{top:31%;left:65%}
-.radarDot.two{top:67%;left:28%}
-.radarDot.three{top:54%;left:75%}
-
-.terminal{
-  padding:28px;
-  border-radius:20px;
-  border:1px solid rgba(103,232,249,.2);
-  background:rgba(0,9,23,.78);
-  box-shadow:
-    0 30px 100px rgba(0,0,0,.35),
-    inset 0 0 50px rgba(56,189,248,.025);
-}
-
-.terminalHead{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding-bottom:18px;
-  border-bottom:1px solid rgba(103,232,249,.1);
-  margin-bottom:20px;
-}
-
-.terminalDots{
-  display:flex;
-  gap:7px;
-}
-
-.terminalDots i{
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  background:#67e8f9;
-  box-shadow:0 0 10px #67e8f9;
-}
-
-.terminalId{
-  font:8px monospace;
-  color:#4e6884;
-}
-
-.terminalText{
-  min-height:280px;
-  font:12px/2 monospace;
-  color:#80dff4;
-}
-
-.log{
-  opacity:0;
-  transform:translateX(-15px);
-  transition:.3s;
-}
-
-.log.show{
-  opacity:1;
-  transform:none;
-}
-
-.log.warn{
-  color:#d9f8ff;
-}
-
-.fakeCursor{
-  display:inline-block;
-  width:7px;
-  height:14px;
-  background:#67e8f9;
-  animation:blink .6s infinite;
-}
-
-/* =========================================================
-   PART 03 — SCANNER
-========================================================= */
-
-.scanStage{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
-  align-items:center;
-}
-
-.scanCharacter{
-  height:540px;
+.loading-core{
   position:relative;
+  width:170px;
+  height:170px;
   display:grid;
   place-items:center;
-  perspective:900px;
 }
 
-.characterCore{
-  width:260px;
-  height:340px;
-  border-radius:48% 48% 43% 43%;
-  background:
-    radial-gradient(circle at 50% 30%,#f8fdff 0 4%,transparent 5%),
-    radial-gradient(circle at 35% 37%,#061a32 0 2%,transparent 3%),
-    radial-gradient(circle at 65% 37%,#061a32 0 2%,transparent 3%),
-    linear-gradient(145deg,#bff7ff,#3fa9db 55%,#123b65);
-  box-shadow:
-    0 0 80px rgba(56,189,248,.3),
-    inset -25px -30px 50px rgba(2,6,23,.25);
-  position:relative;
-  transform-style:preserve-3d;
-  animation:characterFloat 4s ease-in-out infinite;
-}
-
-.characterCore::before{
-  content:"♡";
+.loading-ring{
   position:absolute;
-  left:50%;
-  bottom:55px;
-  transform:translateX(-50%);
-  font-size:50px;
-  color:white;
-  text-shadow:0 0 25px #fff;
-}
-
-.characterCore::after{
-  content:"";
-  position:absolute;
-  width:50px;
-  height:20px;
-  left:50%;
-  bottom:105px;
-  transform:translateX(-50%);
-  border-bottom:2px solid #0b4263;
+  inset:0;
   border-radius:50%;
+  border:2px solid rgba(100,230,255,.3);
+  border-top-color:#fff;
+  border-bottom-color:#55d9ff;
+  animation:spin 1s linear infinite;
+  box-shadow:0 0 35px #168cff;
 }
 
-@keyframes characterFloat{
-  50%{transform:translateY(-16px) rotateY(5deg)}
+.loading-ring:nth-child(2){
+  inset:15px;
+  animation-duration:1.5s;
+  animation-direction:reverse;
 }
 
-.scanCircle{
-  position:absolute;
-  width:390px;
-  aspect-ratio:1;
-  border-radius:50%;
-  border:1px solid rgba(103,232,249,.25);
+.loading-ring:nth-child(3){
+  inset:32px;
+  animation-duration:.7s;
 }
 
-.scanCircle.a{
-  animation:spin 11s linear infinite;
-}
-
-.scanCircle.b{
-  width:470px;
-  border-style:dashed;
-  animation:spinReverse 17s linear infinite;
+.loading-heart{
+  font-size:58px;
+  filter:drop-shadow(0 0 20px #55d9ff);
+  animation:heartLoad .35s infinite alternate;
 }
 
 @keyframes spin{
   to{transform:rotate(360deg)}
 }
 
-@keyframes spinReverse{
-  to{transform:rotate(-360deg)}
+@keyframes heartLoad{
+  from{transform:scale(.85)}
+  to{transform:scale(1.2)}
 }
 
-.scanLine{
-  position:absolute;
-  width:500px;
-  max-width:95%;
-  height:2px;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    #67e8f9,
-    transparent
-  );
-  box-shadow:0 0 25px #67e8f9;
-  animation:scanLine 2.8s ease-in-out infinite;
-}
-
-@keyframes scanLine{
-  0%,100%{transform:translateY(-180px);opacity:0}
-  20%,80%{opacity:1}
-  50%{transform:translateY(180px)}
-}
-
-.dataTag{
-  position:absolute;
-  padding:8px 12px;
-  border:1px solid rgba(103,232,249,.25);
-  background:rgba(2,10,24,.65);
-  color:#7edcf3;
-  font:8px monospace;
-  backdrop-filter:blur(10px);
-}
-
-.tag1{top:12%;left:5%}
-.tag2{top:30%;right:3%}
-.tag3{bottom:22%;left:0}
-.tag4{bottom:9%;right:8%}
-
-.stats{
-  display:grid;
-  gap:14px;
-  margin-top:30px;
-}
-
-.stat{
-  padding:17px 20px;
-  border-left:2px solid #38bdf8;
-  background:linear-gradient(
-    90deg,
-    rgba(56,189,248,.08),
-    transparent
-  );
-}
-
-.stat span{
-  display:block;
-  color:#5d7895;
-  font:9px monospace;
-}
-
-.stat strong{
-  display:block;
-  margin-top:5px;
-  font:18px "Orbitron",sans-serif;
-  color:#dffcff;
-}
-
-/* =========================================================
-   PART 04 — CUTENESS DISASTER
-========================================================= */
-
-#part4{
-  background:
-    radial-gradient(circle at 50% 50%,rgba(56,189,248,.13),transparent 33%);
-}
-
-.overloadStage{
-  text-align:center;
+.loading-text{
   position:relative;
+  margin-top:35px;
+  font-family:Orbitron,sans-serif;
+  letter-spacing:5px;
+  color:#bdf8ff;
+  text-align:center;
 }
 
-.overloadEmoji{
-  font-size:clamp(90px,16vw,210px);
-  filter:
-    drop-shadow(0 0 20px rgba(103,232,249,.7))
-    drop-shadow(0 0 70px rgba(56,189,248,.45));
-  animation:
-    adorableShake .075s infinite,
-    adorablePulse 1s ease-in-out infinite;
-  transform-origin:center;
-}
-
-@keyframes adorableShake{
-  0%{
-    transform:translate(0,0) rotate(0) scale(1);
-  }
-  12%{
-    transform:translate(5px,-4px) rotate(2deg) scale(1.02);
-  }
-  25%{
-    transform:translate(-7px,5px) rotate(-2deg) scale(.98);
-  }
-  38%{
-    transform:translate(9px,2px) rotate(3deg) scale(1.04);
-  }
-  50%{
-    transform:translate(-10px,-7px) rotate(-3deg) scale(.97);
-  }
-  63%{
-    transform:translate(7px,8px) rotate(2deg) scale(1.03);
-  }
-  76%{
-    transform:translate(-5px,-3px) rotate(-2deg) scale(.99);
-  }
-  88%{
-    transform:translate(4px,5px) rotate(1deg);
-  }
-  100%{
-    transform:translate(0,0) rotate(0) scale(1);
-  }
-}
-
-@keyframes adorablePulse{
-  50%{
-    filter:
-      drop-shadow(0 0 45px rgba(103,232,249,.9))
-      drop-shadow(0 0 120px rgba(56,189,248,.55));
-  }
-}
-
-.overloadTitle{
-  font-size:clamp(32px,6vw,72px);
-  font-weight:800;
+.loading-sub{
+  position:relative;
   margin-top:10px;
+  color:#6a9eb3;
+  font-size:13px;
 }
 
-.overloadBox{
-  width:min(620px,90vw);
-  margin:35px auto;
-}
-
-.loadOuter{
-  height:16px;
-  padding:2px;
-  border:1px solid rgba(103,232,249,.4);
-  border-radius:30px;
-  background:#020a17;
+.loading-bar{
+  position:relative;
+  width:min(420px,75vw);
+  height:4px;
+  margin-top:28px;
+  background:rgba(255,255,255,.08);
   overflow:hidden;
 }
 
-.loadInner{
+.loading-bar span{
+  display:block;
   height:100%;
-  width:0;
-  border-radius:30px;
-  background:
-    linear-gradient(
-      90deg,
-      #38bdf8,
-      #67e8f9,
-      #fff
-    );
-  box-shadow:
-    0 0 20px #67e8f9,
-    0 0 60px rgba(56,189,248,.6);
-  transition:width .08s linear;
+  width:0%;
+  background:#fff;
+  box-shadow:0 0 20px #55d9ff;
 }
 
-.loadPercent{
-  margin-top:12px;
-  color:#67e8f9;
-  font:10px monospace;
+.loading-percent{
+  position:relative;
+  margin-top:10px;
+  font-family:Orbitron;
+  color:#55d9ff;
 }
 
-.errorText{
-  min-height:25px;
-  margin-top:14px;
-  color:#c9f8ff;
-  font:11px monospace;
+body.loading-chaos #loading{
+  animation:worldShake .045s infinite;
 }
 
-#debris{
+body.loading-chaos #loading>*{
+  animation-duration:.08s;
+}
+
+@keyframes worldShake{
+  0%{transform:translate(0,0) rotate(0)}
+  10%{transform:translate(-14px,8px) rotate(-.7deg)}
+  20%{transform:translate(12px,-12px) rotate(.8deg)}
+  30%{transform:translate(-10px,-8px) rotate(-.5deg)}
+  40%{transform:translate(16px,10px) rotate(.9deg)}
+  50%{transform:translate(-17px,0) rotate(-.8deg)}
+  60%{transform:translate(8px,14px) rotate(.5deg)}
+  70%{transform:translate(-12px,-10px) rotate(-.7deg)}
+  80%{transform:translate(15px,-5px) rotate(.8deg)}
+  90%{transform:translate(-8px,11px) rotate(-.4deg)}
+  100%{transform:translate(0,0) rotate(0)}
+}
+
+#loading.flash{
+  animation:flashBoom .7s forwards!important;
+}
+
+@keyframes flashBoom{
+  0%{filter:brightness(1)}
+  40%{filter:brightness(3)}
+  70%{filter:brightness(7)}
+  100%{
+    opacity:0;
+    visibility:hidden;
+    filter:brightness(15);
+  }
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+#app{
+  position:relative;
+  width:100%;
+  height:100vh;
+}
+
+.scene{
   position:absolute;
   inset:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  opacity:0;
+  visibility:hidden;
+  transform:scale(1.08);
+  transition:
+    opacity .8s ease,
+    transform 1.2s cubic-bezier(.16,1,.3,1);
+}
+
+.scene.active{
+  opacity:1;
+  visibility:visible;
+  transform:scale(1);
+}
+
+.scene-inner{
+  position:relative;
+  z-index:5;
+  width:min(1200px,92vw);
+  height:100%;
+  margin:auto;
+}
+
+/* =========================================================
+   TOP HUD
+========================================================= */
+
+.hud{
+  position:absolute;
+  top:24px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(1100px,88vw);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  z-index:100;
   pointer-events:none;
 }
 
+.hud-logo{
+  font-family:Orbitron;
+  font-size:11px;
+  letter-spacing:3px;
+  color:#8defff;
+}
+
+.hud-part{
+  font-family:Orbitron;
+  font-size:10px;
+  color:#5f899c;
+  letter-spacing:2px;
+}
+
+.hud-line{
+  position:absolute;
+  top:50%;
+  left:120px;
+  right:120px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,#55d9ff,transparent);
+  opacity:.25;
+}
+
 /* =========================================================
-   PART 05 — HOLOGRAM MUSEUM
+   BUTTON
 ========================================================= */
 
-#part5{
+.next{
+  position:absolute;
+  z-index:300;
+  bottom:35px;
+  left:50%;
+  transform:translateX(-50%);
+  border:1px solid rgba(150,240,255,.7);
+  color:#dffcff;
   background:
-    linear-gradient(
-      120deg,
-      rgba(2,7,18,.96),
-      rgba(8,24,51,.72)
+    linear-gradient(135deg,
+      rgba(40,170,255,.25),
+      rgba(80,80,255,.12));
+  padding:13px 30px;
+  border-radius:999px;
+  cursor:pointer;
+  letter-spacing:2px;
+  font-size:12px;
+  backdrop-filter:blur(15px);
+  box-shadow:
+    0 0 20px rgba(50,210,255,.2),
+    inset 0 0 20px rgba(50,210,255,.05);
+  transition:.25s;
+}
+
+.next:hover,
+.next:active{
+  transform:translateX(-50%) scale(1.08);
+  box-shadow:
+    0 0 40px rgba(50,210,255,.6),
+    0 0 100px rgba(50,100,255,.2);
+}
+
+.next::after{
+  content:" →";
+  transition:.2s;
+}
+
+.next:hover::after{
+  margin-left:8px;
+}
+
+/* =========================================================
+   PART 01
+========================================================= */
+
+#s1{
+  background:
+    radial-gradient(circle at 50% 45%,rgba(20,150,255,.3),transparent 25%),
+    radial-gradient(circle at 20% 80%,rgba(100,60,255,.18),transparent 30%),
+    linear-gradient(#020b18,#01040b);
+}
+
+.s1-orbit{
+  position:absolute;
+  width:700px;
+  height:700px;
+  border:1px solid rgba(80,220,255,.1);
+  border-radius:50%;
+  left:50%;
+  top:50%;
+  transform:
+    translate(-50%,-50%)
+    translate(
+      calc((var(--mx) - 50%) * -.12),
+      calc((var(--my) - 50%) * -.12)
+    );
+  animation:orbitRotate 30s linear infinite;
+}
+
+.s1-orbit::before,
+.s1-orbit::after{
+  content:"";
+  position:absolute;
+  inset:80px;
+  border:1px dashed rgba(100,180,255,.15);
+  border-radius:50%;
+}
+
+.s1-orbit::after{
+  inset:180px;
+  border-color:rgba(255,255,255,.1);
+}
+
+@keyframes orbitRotate{
+  to{transform:translate(-50%,-50%) rotate(360deg)}
+}
+
+.cinematic{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+.eyebrow{
+  font-family:Orbitron;
+  color:#59dcff;
+  letter-spacing:6px;
+  font-size:11px;
+  margin-bottom:22px;
+}
+
+.hero-title{
+  font-size:clamp(48px,9vw,105px);
+  line-height:.9;
+  font-weight:700;
+  text-shadow:
+    0 0 20px rgba(70,210,255,.8),
+    0 0 80px rgba(20,130,255,.35);
+  animation:titleFloat 4s ease-in-out infinite;
+}
+
+@keyframes titleFloat{
+  50%{transform:translateY(-8px)}
+}
+
+.hero-title span{
+  display:block;
+  color:#a7f5ff;
+}
+
+.hero-sub{
+  margin-top:28px;
+  font-size:clamp(16px,2.5vw,23px);
+  color:#a9cbd7;
+}
+
+.type-cursor{
+  color:#55d9ff;
+  animation:blink .7s infinite;
+}
+
+@keyframes blink{
+  50%{opacity:0}
+}
+
+.s1-character{
+  position:absolute;
+  right:7%;
+  bottom:8%;
+  width:190px;
+  height:260px;
+  transform:
+    translate(
+      calc((var(--mx) - 50%) * .06),
+      calc((var(--my) - 50%) * .06)
+    );
+  transition:transform .2s;
+}
+
+.char-head{
+  width:105px;
+  height:105px;
+  border-radius:48% 52% 45% 55%;
+  background:
+    radial-gradient(circle at 65% 30%,#fff,#9cecff 45%,#3798d5);
+  margin:auto;
+  box-shadow:0 0 50px rgba(80,220,255,.5);
+  position:relative;
+}
+
+.char-head::before,
+.char-head::after{
+  content:"";
+  position:absolute;
+  top:42px;
+  width:9px;
+  height:14px;
+  border-radius:50%;
+  background:#07182d;
+}
+
+.char-head::before{left:27px}
+.char-head::after{right:27px}
+
+.char-body{
+  width:150px;
+  height:150px;
+  margin:-5px auto 0;
+  border-radius:55px 55px 25px 25px;
+  background:
+    linear-gradient(135deg,#eaffff,#69d9ff 50%,#2561a8);
+  box-shadow:0 0 40px rgba(70,210,255,.25);
+}
+
+.s1-stars{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 10% 20%,white 0 1px,transparent 2px),
+    radial-gradient(circle at 80% 30%,white 0 1px,transparent 2px),
+    radial-gradient(circle at 30% 70%,white 0 1px,transparent 2px),
+    radial-gradient(circle at 70% 80%,white 0 1px,transparent 2px);
+  background-size:170px 130px;
+  opacity:.35;
+}
+
+/* =========================================================
+   PART 02 TERMINAL
+========================================================= */
+
+#s2{
+  background:
+    linear-gradient(rgba(0,15,25,.9),rgba(0,5,12,.98)),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 60px,
+      rgba(50,220,255,.04) 61px
     );
 }
 
-.evidenceGrid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:22px;
-  margin-top:48px;
+.terminal{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:min(800px,90vw);
+  transform:translate(-50%,-50%);
+  border:1px solid rgba(80,220,255,.35);
+  background:rgba(1,10,18,.82);
+  box-shadow:
+    0 0 100px rgba(0,150,255,.15),
+    inset 0 0 80px rgba(0,100,255,.05);
+  border-radius:15px;
+  overflow:hidden;
 }
 
-.evidence{
+.term-top{
+  height:44px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:0 15px;
+  background:rgba(60,200,255,.06);
+  border-bottom:1px solid rgba(100,220,255,.15);
+}
+
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#55d9ff;
+  box-shadow:0 0 10px #55d9ff;
+}
+
+.term-body{
+  padding:30px;
   min-height:350px;
-  padding:28px;
-  position:relative;
-  overflow:hidden;
-  border:1px solid rgba(103,232,249,.2);
+  font-family:monospace;
+  color:#9ff4ff;
+  line-height:2;
+  font-size:14px;
+}
+
+.term-line{
+  opacity:0;
+  transform:translateX(-10px);
+}
+
+.scene.active .term-line{
+  animation:termIn .5s forwards;
+}
+
+.term-line:nth-child(1){animation-delay:.4s}
+.term-line:nth-child(2){animation-delay:1s}
+.term-line:nth-child(3){animation-delay:1.6s}
+.term-line:nth-child(4){animation-delay:2.2s}
+.term-line:nth-child(5){animation-delay:2.8s}
+.term-line:nth-child(6){animation-delay:3.4s}
+
+@keyframes termIn{
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+}
+
+.warning{
+  color:#ff8bd9;
+  text-shadow:0 0 12px #ff3dc2;
+}
+
+.progress{
+  height:4px;
+  width:100%;
+  background:#092333;
+  margin-top:20px;
+}
+
+.progress span{
+  display:block;
+  width:0;
+  height:100%;
+  background:#55d9ff;
+  box-shadow:0 0 15px #55d9ff;
+}
+
+.scene.active .progress span{
+  animation:progress 3s 1s forwards;
+}
+
+@keyframes progress{
+  to{width:100%}
+}
+
+/* =========================================================
+   PART 03 SCANNER
+========================================================= */
+
+#s3{
+  background:
+    radial-gradient(circle at center,rgba(30,120,180,.18),transparent 45%),
+    #020b13;
+}
+
+.scan-frame{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:min(430px,75vw);
+  height:min(500px,68vh);
+  transform:translate(-50%,-50%);
+  border:1px solid rgba(90,220,255,.3);
+}
+
+.scan-frame::before,
+.scan-frame::after{
+  content:"";
+  position:absolute;
+  width:50px;
+  height:50px;
+  border-color:#7eeeff;
+  border-style:solid;
+}
+
+.scan-frame::before{
+  left:-2px;
+  top:-2px;
+  border-width:2px 0 0 2px;
+}
+
+.scan-frame::after{
+  right:-2px;
+  bottom:-2px;
+  border-width:0 2px 2px 0;
+}
+
+.scan-beam{
+  position:absolute;
+  left:0;
+  right:0;
+  height:2px;
+  background:#9ff4ff;
+  box-shadow:0 0 30px #55d9ff;
+  animation:scanBeam 2.8s linear infinite;
+}
+
+@keyframes scanBeam{
+  from{top:0}
+  to{top:100%}
+}
+
+.scanned-girl{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:200px;
+  height:330px;
+  filter:drop-shadow(0 0 25px rgba(90,220,255,.5));
+}
+
+.hair{
+  position:absolute;
+  left:25px;
+  top:15px;
+  width:150px;
+  height:190px;
+  border-radius:50% 50% 35% 35%;
+  background:
+    linear-gradient(135deg,#102c5b,#257ed2,#77dfff);
+}
+
+.face{
+  position:absolute;
+  left:42px;
+  top:45px;
+  width:115px;
+  height:140px;
+  border-radius:45% 45% 48% 48%;
+  background:linear-gradient(#dffaff,#a8e9fa);
+}
+
+.eye{
+  position:absolute;
+  top:78px;
+  width:11px;
+  height:15px;
+  border-radius:50%;
+  background:#06152b;
+}
+
+.eye.l{left:68px}
+.eye.r{right:68px}
+
+.mouth{
+  position:absolute;
+  left:91px;
+  top:120px;
+  width:20px;
+  height:10px;
+  border-bottom:3px solid #3d7194;
+  border-radius:50%;
+}
+
+.scan-data{
+  position:absolute;
+  right:20px;
+  top:50%;
+  transform:translateY(-50%);
+  font-family:Orbitron;
+  font-size:10px;
+  line-height:2.4;
+  color:#64e8ff;
+  text-align:left;
+}
+
+/* =========================================================
+   PART 04 CUTENESS OVERLOAD
+========================================================= */
+
+#s4{
+  background:
+    radial-gradient(circle at center,#124b77 0%,#071b32 35%,#020713 80%);
+}
+
+.cute-core{
+  position:absolute;
+  left:50%;
+  top:48%;
+  transform:translate(-50%,-50%);
+  width:260px;
+  height:260px;
+  display:grid;
+  place-items:center;
+}
+
+.cute-heart{
+  font-size:170px;
+  animation:
+    cutePulse .42s infinite alternate,
+    cuteShake .12s infinite;
+  filter:
+    drop-shadow(0 0 15px #ff7bd5)
+    drop-shadow(0 0 60px #55d9ff);
+}
+
+@keyframes cutePulse{
+  to{transform:scale(1.35)}
+}
+
+@keyframes cuteShake{
+  0%{margin:0}
+  25%{margin-left:14px}
+  50%{margin-top:-12px}
+  75%{margin-left:-15px}
+  100%{margin-top:12px}
+}
+
+.cute-word{
+  position:absolute;
+  font-size:clamp(20px,4vw,45px);
+  font-weight:700;
+  color:#fff;
+  text-shadow:0 0 20px #55d9ff;
+  opacity:0;
+  animation:cuteWords 3s infinite;
+}
+
+.cute-word:nth-child(2){animation-delay:.3s}
+.cute-word:nth-child(3){animation-delay:.8s}
+.cute-word:nth-child(4){animation-delay:1.3s}
+.cute-word:nth-child(5){animation-delay:1.8s}
+
+@keyframes cuteWords{
+  0%{opacity:0;transform:scale(.2) rotate(-30deg)}
+  20%{opacity:1}
+  55%{opacity:1;transform:scale(1) rotate(0)}
+  100%{opacity:0;transform:translateY(-100px) scale(1.4) rotate(20deg)}
+}
+
+.shockwave{
+  position:absolute;
+  width:180px;
+  height:180px;
+  border:2px solid rgba(255,255,255,.5);
+  border-radius:50%;
+  animation:shock 1.4s infinite;
+}
+
+.shockwave:nth-child(2){animation-delay:.4s}
+.shockwave:nth-child(3){animation-delay:.8s}
+
+@keyframes shock{
+  from{
+    transform:scale(.5);
+    opacity:1;
+  }
+  to{
+    transform:scale(3);
+    opacity:0;
+  }
+}
+
+/* =========================================================
+   PART 05 EVIDENCE
+========================================================= */
+
+#s5{
+  background:
+    linear-gradient(135deg,#020915,#061d31);
+}
+
+.evidence-title{
+  position:absolute;
+  top:100px;
+  left:50%;
+  transform:translateX(-50%);
+  text-align:center;
+}
+
+.evidence-grid{
+  position:absolute;
+  left:50%;
+  top:53%;
+  transform:translate(-50%,-50%);
+  width:min(900px,90vw);
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.e-card{
+  min-height:270px;
+  padding:25px;
+  border:1px solid rgba(100,220,255,.25);
+  border-radius:18px;
   background:
     linear-gradient(
       145deg,
-      rgba(56,189,248,.11),
-      rgba(3,12,28,.7)
+      rgba(70,210,255,.12),
+      rgba(70,80,255,.04)
     );
-  border-radius:20px;
+  backdrop-filter:blur(18px);
   transform-style:preserve-3d;
-  transition:.18s;
+  transition:transform .15s,border-color .3s,box-shadow .3s;
+  position:relative;
+  overflow:hidden;
 }
 
-.evidence::before{
+.e-card::before{
   content:"";
   position:absolute;
-  top:-100%;
-  left:0;
-  width:100%;
-  height:60%;
-  background:linear-gradient(
-    transparent,
-    rgba(103,232,249,.13),
-    transparent
-  );
-  animation:evidenceScan 3.5s linear infinite;
+  width:100px;
+  height:250px;
+  background:rgba(255,255,255,.08);
+  transform:rotate(30deg);
+  left:-150px;
+  top:-30px;
+  transition:1s;
 }
 
-@keyframes evidenceScan{
-  to{top:150%}
+.e-card:hover::before{
+  left:120%;
 }
 
-.evidence::after{
-  content:"HOLOGRAPHIC RECORD";
-  position:absolute;
-  top:16px;
-  right:16px;
-  font:7px monospace;
-  color:#57809b;
+.e-card:hover{
+  border-color:#6eeaff;
+  box-shadow:0 0 40px rgba(60,210,255,.2);
 }
 
-.evidenceIcon{
-  font-size:70px;
-  margin:30px 0 25px;
-  transform:translateZ(40px);
-  filter:drop-shadow(0 0 20px rgba(103,232,249,.4));
+.e-icon{
+  font-size:55px;
+  margin-bottom:20px;
 }
 
-.evidence h3{
-  font-size:25px;
-  transform:translateZ(25px);
+.e-card h3{
+  color:#9ff4ff;
+  margin-bottom:8px;
 }
 
-.evidence p{
-  color:#829bb5;
-  line-height:1.8;
-  margin-top:10px;
+.e-card p{
+  color:#8caab8;
+  font-size:13px;
+  line-height:1.7;
 }
 
 /* =========================================================
-   PART 06 — MULTIVERSE
+   PART 06 PORTALS
 ========================================================= */
 
-#part6{
-  background:
-    radial-gradient(
-      ellipse at center,
-      rgba(99,102,241,.14),
-      transparent 55%
-    );
+#s6{
+  background:#01030a;
+}
+
+.portal-title{
+  position:absolute;
+  top:70px;
+  width:100%;
+  text-align:center;
 }
 
 .portals{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  display:flex;
   gap:35px;
-  margin-top:50px;
 }
 
 .portal{
-  height:390px;
-  position:relative;
-  display:grid;
-  place-items:center;
-  border-radius:50%;
+  width:180px;
+  height:250px;
+  border-radius:90px;
+  border:2px solid #55d9ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
   cursor:pointer;
+  position:relative;
   overflow:hidden;
-  border:1px solid rgba(103,232,249,.28);
-  background:
-    radial-gradient(
-      circle,
-      rgba(103,232,249,.17),
-      rgba(4,12,30,.88) 55%
-    );
-  transition:.5s cubic-bezier(.2,.8,.2,1);
+  transition:.5s;
+  box-shadow:
+    0 0 30px rgba(70,210,255,.25),
+    inset 0 0 50px rgba(70,210,255,.15);
 }
 
 .portal::before{
   content:"";
   position:absolute;
-  inset:13%;
+  inset:15px;
+  border:1px dashed rgba(255,255,255,.3);
   border-radius:50%;
-  border:1px dashed rgba(103,232,249,.45);
-  animation:spin 9s linear infinite;
+  animation:portalSpin 5s linear infinite;
 }
 
-.portal::after{
-  content:"";
-  position:absolute;
-  inset:24%;
-  border-radius:50%;
-  border:1px solid rgba(192,132,252,.35);
-  animation:spinReverse 5s linear infinite;
+@keyframes portalSpin{
+  to{transform:rotate(360deg)}
 }
 
 .portal:hover{
-  transform:scale(1.08);
-  box-shadow:
-    0 0 50px rgba(56,189,248,.2),
-    inset 0 0 80px rgba(56,189,248,.1);
+  transform:scale(1.12);
 }
 
-.portalInner{
+.portal-content{
   position:relative;
   z-index:2;
-  text-align:center;
 }
 
-.portalEmoji{
-  font-size:70px;
-  filter:drop-shadow(0 0 25px rgba(103,232,249,.6));
+.portal-icon{
+  font-size:55px;
+  margin-bottom:12px;
 }
 
-.portalTitle{
-  font:20px "Orbitron",sans-serif;
-  margin-top:15px;
-}
-
-.portalSmall{
-  color:#65809c;
+.portal p{
+  color:#8cb7c5;
   font-size:12px;
 }
 
+#portalResult{
+  position:absolute;
+  left:50%;
+  bottom:120px;
+  transform:translateX(-50%) scale(.5);
+  opacity:0;
+  text-align:center;
+  transition:.5s;
+  pointer-events:none;
+}
+
+#portalResult.show{
+  opacity:1;
+  transform:translateX(-50%) scale(1);
+}
+
 /* =========================================================
-   PART 07 — MEMORY
+   PART 07 MEMORY
 ========================================================= */
 
-#part7{
+#s7{
   background:
-    linear-gradient(
-      180deg,
-      #020617,
-      #071226,
-      #020617
-    );
+    radial-gradient(circle at 50% 50%,#092d47,transparent 45%),
+    #020711;
 }
 
 .memory{
-  text-align:center;
-}
-
-.fragmentCloud{
-  min-height:220px;
-  max-width:900px;
-  margin:40px auto 0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:10px 22px;
+  position:absolute;
+  inset:0;
 }
 
 .fragment{
-  font-size:clamp(34px,7vw,90px);
-  font-weight:800;
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:250px;
+  padding:20px;
+  border:1px solid rgba(100,220,255,.3);
+  background:rgba(30,100,150,.08);
+  backdrop-filter:blur(10px);
+  text-align:center;
   opacity:0;
-  filter:blur(18px);
-  transform:
-    translate(
-      var(--x),
-      var(--y)
-    )
-    rotate(var(--r))
-    scale(.3);
-  transition:
-    1.4s cubic-bezier(.16,1,.3,1);
 }
 
-.fragment.show{
-  opacity:1;
-  filter:blur(0);
-  transform:none;
+.scene.active .fragment{
+  animation:fragmentIn 1.2s forwards;
 }
 
-.memoryCard{
-  max-width:800px;
-  margin:35px auto 0;
-  padding:35px;
-  border:1px solid rgba(103,232,249,.18);
-  background:rgba(6,19,42,.55);
-  border-radius:22px;
-  box-shadow:inset 0 0 60px rgba(56,189,248,.025);
+.fragment:nth-child(1){animation-delay:.2s}
+.fragment:nth-child(2){animation-delay:.6s}
+.fragment:nth-child(3){animation-delay:1s}
+.fragment:nth-child(4){animation-delay:1.4s}
+.fragment:nth-child(5){animation-delay:1.8s}
+
+.fragment:nth-child(1){--x:-280px;--y:-150px;--r:-15deg}
+.fragment:nth-child(2){--x:120px;--y:-170px;--r:12deg}
+.fragment:nth-child(3){--x:-330px;--y:100px;--r:8deg}
+.fragment:nth-child(4){--x:100px;--y:100px;--r:-9deg}
+.fragment:nth-child(5){--x:-125px;--y:0;--r:0deg}
+
+@keyframes fragmentIn{
+  0%{
+    opacity:0;
+    transform:
+      translate(-50%,-50%)
+      translate(0,0)
+      scale(2)
+      rotate(90deg);
+    filter:blur(15px);
+  }
+  70%{opacity:1}
+  100%{
+    opacity:1;
+    transform:
+      translate(-50%,-50%)
+      translate(var(--x),var(--y))
+      scale(1)
+      rotate(var(--r));
+    filter:blur(0);
+  }
+}
+
+.memory-center{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  z-index:5;
+}
+
+.memory-center h2{
+  font-size:clamp(35px,7vw,75px);
+  color:#baf7ff;
+  text-shadow:0 0 40px #55d9ff;
 }
 
 /* =========================================================
-   PART 08 — REACTOR
+   PART 08 REACTOR
 ========================================================= */
 
-#part8{
+#s8{
   background:
-    radial-gradient(
-      circle at center,
-      rgba(56,189,248,.14),
-      transparent 40%
-    );
+    radial-gradient(circle at center,rgba(30,130,255,.2),transparent 30%),
+    #01050d;
 }
 
 .reactor{
-  text-align:center;
-}
-
-.reactorCore{
+  position:absolute;
+  left:50%;
+  top:48%;
+  transform:translate(-50%,-50%);
   width:330px;
   height:330px;
-  margin:50px auto;
-  position:relative;
   display:grid;
   place-items:center;
 }
 
-.core{
-  width:145px;
-  height:145px;
-  border-radius:50%;
-  background:
-    radial-gradient(circle,#fff 0 5%,#67e8f9 12%,#38bdf8 38%,#07152e 70%);
-  box-shadow:
-    0 0 35px #67e8f9,
-    0 0 100px rgba(56,189,248,.55);
-  animation:corePulse 1s infinite;
-  position:relative;
-  z-index:4;
-}
-
-@keyframes corePulse{
-  50%{
-    transform:scale(1.22);
-    box-shadow:
-      0 0 80px #67e8f9,
-      0 0 170px rgba(56,189,248,.65);
-  }
-}
-
-.ring{
+.reactor-ring{
   position:absolute;
   inset:0;
+  border:2px solid rgba(80,220,255,.3);
   border-radius:50%;
-  border:1px solid rgba(103,232,249,.3);
+  box-shadow:
+    0 0 50px rgba(60,210,255,.15),
+    inset 0 0 50px rgba(60,210,255,.15);
+  animation:reactorSpin 8s linear infinite;
 }
 
-.ring.r1{
-  transform:rotateX(65deg);
-  animation:spin 5s linear infinite;
-}
-
-.ring.r2{
-  transform:rotateY(65deg);
-  animation:spinReverse 7s linear infinite;
-}
-
-.ring.r3{
-  inset:-35px;
+.reactor-ring:nth-child(2){
+  inset:25px;
+  animation-direction:reverse;
+  animation-duration:5s;
   border-style:dashed;
-  animation:spin 13s linear infinite;
 }
 
-.ring.r4{
-  inset:35px;
-  border-color:rgba(192,132,252,.3);
-  animation:spinReverse 4s linear infinite;
+.reactor-ring:nth-child(3){
+  inset:60px;
+  animation-duration:3s;
 }
 
-.reactorText{
-  min-height:65px;
-  font-size:clamp(25px,4vw,48px);
-  font-weight:700;
+@keyframes reactorSpin{
+  to{transform:rotate(360deg)}
+}
+
+.reactor-heart{
+  font-size:105px;
+  animation:reactorBeat .8s infinite alternate;
+  filter:
+    drop-shadow(0 0 20px #55d9ff)
+    drop-shadow(0 0 70px #168cff);
+}
+
+@keyframes reactorBeat{
+  to{transform:scale(1.3)}
+}
+
+.reactor-text{
+  position:absolute;
+  top:calc(50% + 200px);
+  left:50%;
+  transform:translateX(-50%);
+  text-align:center;
+  width:90%;
+}
+
+.reactor-text span{
+  color:#55d9ff;
 }
 
 /* =========================================================
-   PART 09 — BOSS
+   PART 09 BOSS
 ========================================================= */
 
-#part9{
+#s9{
   background:
-    radial-gradient(
-      circle at center,
-      rgba(14,116,144,.12),
-      transparent 40%
-    );
+    radial-gradient(circle at center,#240b34,#090311 45%,#010105);
 }
 
 .boss{
-  text-align:center;
-}
-
-.bossFrame{
-  max-width:900px;
-  margin:45px auto 0;
-  padding:45px;
-  border:1px solid rgba(103,232,249,.25);
-  border-radius:25px;
-  background:
-    linear-gradient(
-      145deg,
-      rgba(8,25,55,.75),
-      rgba(1,8,20,.9)
-    );
-  position:relative;
-  overflow:hidden;
-}
-
-.bossFrame::before{
-  content:"FINAL ENCOUNTER";
   position:absolute;
-  top:15px;
-  right:18px;
-  font:8px "Orbitron",sans-serif;
-  color:#55728e;
+  left:50%;
+  top:40%;
+  transform:translate(-50%,-50%);
+  text-align:center;
 }
 
-.bossName{
-  font:clamp(35px,7vw,75px) "Orbitron",sans-serif;
-  color:#eaffff;
-  text-shadow:0 0 30px rgba(103,232,249,.25);
+.boss-warning{
+  font-family:Orbitron;
+  font-size:11px;
+  color:#ff64d4;
+  letter-spacing:5px;
+  animation:warningBlink .5s infinite;
 }
 
-.hpOuter{
-  height:18px;
-  margin:30px 0 15px;
-  border:1px solid rgba(103,232,249,.3);
-  border-radius:30px;
-  padding:2px;
+@keyframes warningBlink{
+  50%{opacity:.2}
 }
 
-.hpInner{
-  height:100%;
-  width:100%;
-  border-radius:30px;
-  background:linear-gradient(90deg,#38bdf8,#67e8f9,#c084fc);
-  transition:.6s;
-  box-shadow:0 0 20px rgba(103,232,249,.6);
-}
-
-.bossStatus{
-  min-height:30px;
-  color:#7893ae;
-  font:11px monospace;
-}
-
-.attack{
+.boss-title{
   margin-top:20px;
-  padding:17px 32px;
-  border-radius:14px;
-  border:1px solid rgba(103,232,249,.4);
-  background:#06182e;
-  color:white;
+  font-family:Orbitron;
+  font-size:clamp(32px,7vw,70px);
+  text-shadow:0 0 30px #ff3dc2;
+}
+
+.boss-sub{
+  margin-top:10px;
+  color:#a57b9e;
+}
+
+.charge-area{
+  margin-top:35px;
+}
+
+.charge{
+  width:min(400px,75vw);
+  height:16px;
+  border:1px solid rgba(255,100,220,.5);
+  padding:3px;
+  border-radius:999px;
+}
+
+.charge-fill{
+  width:0;
+  height:100%;
+  border-radius:999px;
+  background:linear-gradient(90deg,#8d43ff,#ff63cf);
+  box-shadow:0 0 20px #ff3dc2;
+  transition:.1s;
+}
+
+.charge-button{
+  margin-top:18px;
+  padding:14px 35px;
+  border:1px solid #ff7bdd;
+  border-radius:999px;
+  background:rgba(255,60,190,.08);
+  color:#fff;
   cursor:pointer;
-  transition:.2s;
+  box-shadow:0 0 30px rgba(255,60,200,.2);
 }
 
-.attack:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 35px rgba(56,189,248,.3);
+.charge-button:active{
+  transform:scale(.92);
 }
 
-.finalChoice{
-  display:none;
-  gap:14px;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin-top:25px;
-}
-
-.finalChoice.show{
-  display:flex;
-}
-
-.choice{
-  padding:15px 25px;
-  border:1px solid rgba(103,232,249,.35);
-  background:rgba(56,189,248,.08);
-  color:white;
-  border-radius:13px;
-  cursor:pointer;
+.boss-result{
+  margin-top:20px;
+  min-height:30px;
+  color:#ffd6f4;
 }
 
 /* =========================================================
-   PART 10 — ENDING
+   PART 10 FINAL
 ========================================================= */
 
-#part10{
-  min-height:120svh;
+#s10{
   background:
-    radial-gradient(
-      circle at 50% 42%,
-      rgba(103,232,249,.16),
-      transparent 28%
-    ),
-    linear-gradient(#020617,#01030a);
+    radial-gradient(circle at center,
+      rgba(50,180,255,.4),
+      rgba(20,50,100,.15) 30%,
+      #01040c 70%);
 }
 
-.ending{
-  text-align:center;
-}
-
-.finalOrb{
-  width:180px;
-  height:180px;
-  margin:auto;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:
-    radial-gradient(circle,#fff 0 3%,#67e8f9 12%,#38bdf8 35%,transparent 70%);
-  box-shadow:
-    0 0 80px rgba(103,232,249,.6),
-    0 0 180px rgba(56,189,248,.25);
-  animation:finalOrb 3s ease-in-out infinite;
-}
-
-@keyframes finalOrb{
-  50%{
-    transform:translateY(-20px) scale(1.08);
-  }
-}
-
-.finalHeart{
-  font-size:80px;
-  filter:drop-shadow(0 0 25px white);
-}
-
-.finalTitle{
-  margin-top:35px;
-  font-size:clamp(55px,11vw,135px);
-  line-height:.9;
-  font-weight:800;
-}
-
-.finalText{
-  max-width:720px;
-  margin:35px auto 0;
-  color:#9bb0c7;
-  font-size:18px;
-  line-height:2.05;
-}
-
-.signature{
-  margin-top:45px;
-  font:9px/2 "Orbitron",sans-serif;
-  letter-spacing:3px;
-  color:#67e8f9;
-}
-
-.finalButton{
-  margin-top:35px;
-}
-
-.secretEnding{
-  display:none;
-  position:fixed;
+.final-stars{
+  position:absolute;
   inset:0;
-  z-index:11000;
-  place-items:center;
   background:
-    radial-gradient(circle,rgba(56,189,248,.2),#01030a 65%);
+    radial-gradient(circle at 20% 30%,#fff 0 1px,transparent 2px),
+    radial-gradient(circle at 80% 20%,#fff 0 1px,transparent 2px),
+    radial-gradient(circle at 40% 80%,#fff 0 1px,transparent 2px),
+    radial-gradient(circle at 70% 70%,#fff 0 1px,transparent 2px);
+  background-size:180px 150px;
+  animation:starsMove 20s linear infinite;
+}
+
+@keyframes starsMove{
+  to{transform:scale(1.2) rotate(2deg)}
+}
+
+.final{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
   text-align:center;
-  padding:30px;
+  width:min(900px,90vw);
+  z-index:20;
 }
 
-.secretEnding.show{
-  display:grid;
-  animation:secretIn 1s ease;
+.final-small{
+  font-family:Orbitron;
+  color:#55d9ff;
+  letter-spacing:6px;
+  font-size:11px;
 }
 
-@keyframes secretIn{
-  from{opacity:0;filter:blur(20px)}
-  to{opacity:1;filter:none}
+.final h1{
+  margin-top:20px;
+  font-size:clamp(48px,10vw,110px);
+  line-height:.95;
+  text-shadow:
+    0 0 25px #55d9ff,
+    0 0 80px rgba(30,130,255,.5);
+}
+
+.final p{
+  margin-top:25px;
+  color:#b1ccd6;
+  font-size:clamp(15px,2vw,20px);
+  line-height:1.8;
+}
+
+.final-heart{
+  margin-top:30px;
+  font-size:80px;
+  animation:finalHeart 1s infinite alternate;
+}
+
+@keyframes finalHeart{
+  to{
+    transform:scale(1.25);
+    filter:drop-shadow(0 0 50px #55d9ff);
+  }
+}
+
+.restart{
+  margin-top:30px;
+  padding:14px 35px;
+  border:1px solid rgba(130,230,255,.7);
+  border-radius:999px;
+  color:white;
+  background:rgba(50,180,255,.1);
+  cursor:pointer;
 }
 
 /* =========================================================
-   MOBILE
+   RESPONSIVE
 ========================================================= */
 
-@media(max-width:850px){
+@media(max-width:700px){
 
-  .topbar{
-    padding:0 15px;
+  .hud{
+    top:15px;
+    width:90vw;
   }
 
-  .brand{
-    font-size:8px;
-    letter-spacing:2px;
-  }
-
-  .status{
+  .hud-line{
     display:none;
   }
 
-  section{
-    padding:100px 6%;
+  .hero-title{
+    font-size:50px;
   }
 
-  .cameraFrame{
-    inset:8%;
+  .s1-character{
+    opacity:.35;
+    right:-25px;
+    bottom:10%;
+    transform:scale(.7);
   }
 
-  .terminalWrap,
-  .scanStage{
+  .terminal{
+    width:92vw;
+  }
+
+  .term-body{
+    min-height:330px;
+    padding:20px;
+    font-size:11px;
+  }
+
+  .scan-data{
+    display:none;
+  }
+
+  .scan-frame{
+    width:75vw;
+    height:58vh;
+  }
+
+  .evidence-grid{
     grid-template-columns:1fr;
+    width:78vw;
+    height:65vh;
+    overflow:auto;
+    padding:10px;
   }
 
-  .radar{
-    width:250px;
+  .e-card{
+    min-height:180px;
   }
 
-  .scanCharacter{
-    height:400px;
-  }
-
-  .characterCore{
-    width:190px;
-    height:260px;
-  }
-
-  .scanCircle{
-    width:290px;
-  }
-
-  .scanCircle.b{
-    width:340px;
-  }
-
-  .evidenceGrid,
   .portals{
-    grid-template-columns:1fr;
+    flex-direction:column;
+    gap:12px;
+    top:48%;
   }
 
   .portal{
-    height:290px;
+    width:130px;
+    height:110px;
+    border-radius:60px;
   }
 
-  .bossFrame{
-    padding:28px 20px;
+  .portal-icon{
+    font-size:30px;
+    margin:0;
   }
 
-  .finalOrb{
-    width:140px;
-    height:140px;
-  }
-
-  #cursorGlow,
-  #cursorDot{
+  .portal p{
     display:none;
   }
 
-  /* reduce animation complexity on small screens,
-     but keep the dramatic shake */
-  .overloadEmoji{
-    animation:
-      adorableShake .09s infinite,
-      adorablePulse 1s infinite;
+  .fragment{
+    width:160px;
+    font-size:11px;
+  }
+
+  .fragment:nth-child(1){--x:-75px;--y:-170px}
+  .fragment:nth-child(2){--x:80px;--y:-170px}
+  .fragment:nth-child(3){--x:-80px;--y:140px}
+  .fragment:nth-child(4){--x:80px;--y:140px}
+  .fragment:nth-child(5){--x:0;--y:-10px}
+
+  .reactor{
+    transform:translate(-50%,-50%) scale(.75);
+  }
+
+  .reactor-text{
+    top:calc(50% + 150px);
+    font-size:13px;
+  }
+
+  .next{
+    bottom:18px;
   }
 }
 
-/* accessibility */
-@media(prefers-reduced-motion:reduce){
-  *,
-  *::before,
-  *::after{
-    animation-duration:.001ms !important;
-    animation-iteration-count:1 !important;
-    scroll-behavior:auto !important;
+/* =========================================================
+   TOUCH FEEDBACK
+========================================================= */
+
+.tap-ring{
+  position:fixed;
+  width:20px;
+  height:20px;
+  border:2px solid #9ff4ff;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:99999;
+  animation:tapBurst .7s ease-out forwards;
+}
+
+@keyframes tapBurst{
+  to{
+    width:120px;
+    height:120px;
+    margin-left:-50px;
+    margin-top:-50px;
+    opacity:0;
   }
+}
+
+.heart-particle{
+  position:fixed;
+  pointer-events:none;
+  z-index:99998;
+  font-size:20px;
+  animation:heartFly 1.2s ease-out forwards;
+}
+
+@keyframes heartFly{
+  to{
+    transform:
+      translate(
+        var(--hx),
+        var(--hy)
+      )
+      rotate(var(--hr));
+    opacity:0;
+  }
+}
+
+.flash{
+  animation:screenFlash .4s;
+}
+
+@keyframes screenFlash{
+  0%{filter:brightness(1)}
+  30%{filter:brightness(3)}
+  100%{filter:brightness(1)}
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="space"></canvas>
+<div id="loading">
 
-<div id="cursorGlow"></div>
-<div id="cursorDot"></div>
-
-<div id="flash"></div>
-<div id="blackout"></div>
-<div id="glitch"></div>
-
-<header class="topbar">
-
-  <div class="brand">
-    PROJECT // BLUE-LOVE
+  <div class="loading-core">
+    <div class="loading-ring"></div>
+    <div class="loading-ring"></div>
+    <div class="loading-ring"></div>
+    <div class="loading-heart">💙</div>
   </div>
 
-  <div class="status">
-    <span class="statusDot"></span>
-    SYSTEM ONLINE
+  <div class="loading-text">INITIALIZING LOVE.EXE</div>
+  <div class="loading-sub">WARNING: CUTENESS LEVEL MAY EXCEED SAFE LIMIT</div>
+
+  <div class="loading-bar">
+    <span id="loadBar"></span>
   </div>
 
-  <button class="music" id="music">
-    ♪
-  </button>
-
-  <div class="progress" id="progress"></div>
-
-</header>
-
-
-<!-- ======================================================
-     PART 01 — CINEMATIC OPENING
-====================================================== -->
-
-<section id="part1">
-
-  <div class="letterbox top"></div>
-  <div class="letterbox bottom"></div>
-
-  <div class="movieLight"></div>
-
-  <div class="cameraFrame"></div>
-
-  <div class="container hero reveal">
-
-    <div class="bootText" id="boot"></div>
-
-    <div class="movieTag">
-      AN UNNECESSARILY SERIOUS LOVE OPERATION
-    </div>
-
-    <h1 class="title">
-      สวัสดี
-      <br>
-      <span class="gradient">คนน่ารัก</span>
-    </h1>
-
-    <p class="subtitle" style="margin-left:auto;margin-right:auto">
-
-      เว็บนี้ถูกสร้างขึ้นเพราะมีคนหนึ่ง
-      <br>
-      อยากกวนใครบางคน...
-      <br>
-      แล้วดันอยากให้เขาประทับใจขึ้นมาซะงั้น 😂
-
-    </p>
-
-    <button class="btn" onclick="go(2)">
-      ▶ ENTER THE OPERATION
-    </button>
-
-  </div>
-
-  <div class="sceneCounter">
-    SCENE 01 / 10
-  </div>
-
-</section>
-
-
-<!-- ======================================================
-     PART 02 — SECRET TERMINAL
-====================================================== -->
-
-<section id="part2">
-
-  <div class="container reveal">
-
-    <div class="kicker">
-      PART 02 // SECRET MISSION
-    </div>
-
-    <div class="terminalWrap">
-
-      <div>
-
-        <h2 class="title">
-          ภารกิจ
-          <br>
-          <span class="gradient">ลับสุด ๆ</span>
-        </h2>
-
-        <p class="subtitle">
-          ระบบกำลังวิเคราะห์สถานการณ์
-          <br>
-          และดูเหมือนว่าคนสร้างเว็บ
-          จะจริงจังกับภารกิจนี้เกินไปหน่อย
-        </p>
-
-      </div>
-
-      <div class="terminal">
-
-        <div class="terminalHead">
-
-          <div class="terminalDots">
-            <i></i><i></i><i></i>
-          </div>
-
-          <div class="terminalId">
-            BLUE-LOVE_OS v2.0
-          </div>
-
-        </div>
-
-        <div class="terminalText" id="terminalText">
-          <span class="fakeCursor"></span>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ======================================================
-     PART 03 — CHARACTER SCAN
-====================================================== -->
-
-<section id="part3">
-
-  <div class="container reveal">
-
-    <div class="kicker">
-      PART 03 // CHARACTER SCAN
-    </div>
-
-    <div class="scanStage">
-
-      <div class="scanCharacter" id="scanCharacter">
-
-        <div class="scanCircle a"></div>
-        <div class="scanCircle b"></div>
-
-        <div class="scanLine"></div>
-
-        <div class="dataTag tag1">
-          TARGET_LOCKED
-        </div>
-
-        <div class="dataTag tag2">
-          CUTE.exe
-        </div>
-
-        <div class="dataTag tag3">
-          HEART_DAMAGE: HIGH
-        </div>
-
-        <div class="dataTag tag4">
-          ESCAPE: IMPOSSIBLE
-        </div>
-
-        <div class="characterCore"></div>
-
-      </div>
-
-      <div>
-
-        <h2 class="title">
-          TARGET
-          <span class="gradient">FOUND.</span>
-        </h2>
-
-        <p class="subtitle">
-          ระบบตรวจพบเป้าหมายแล้ว
-          <br>
-          และขอแจ้งให้ทราบว่า...
-          <br>
-          เป้าหมายนี้น่ารักเกินมาตรฐานความปลอดภัย
-        </p>
-
-        <div class="stats">
-
-          <div class="stat">
-            <span>CUTENESS LEVEL</span>
-            <strong>██████████ 100%</strong>
-          </div>
-
-          <div class="stat">
-            <span>CHAOS POTENTIAL</span>
-            <strong>CRITICAL</strong>
-          </div>
-
-          <div class="stat">
-            <span>HEART DAMAGE</span>
-            <strong>UNMEASURABLE</strong>
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ======================================================
-     PART 04 — CUTENESS OVERLOAD
-====================================================== -->
-
-<section id="part4">
-
-  <div class="container overloadStage reveal">
-
-    <div class="kicker">
-      PART 04 // SYSTEM DISASTER
-    </div>
-
-    <div class="overloadEmoji" id="overloadEmoji">
-      🫠
-    </div>
-
-    <h2 class="overloadTitle">
-      น่ารักเกินไปแล้วโว้ยยยย
-    </h2>
-
-    <div class="overloadBox">
-
-      <div class="loadOuter">
-        <div class="loadInner" id="loadInner"></div>
-      </div>
-
-      <div class="loadPercent" id="loadPercent">
-        SYSTEM LOADING... 0%
-      </div>
-
-      <div class="errorText" id="errorText">
-        CALIBRATING CUTENESS...
-      </div>
-
-    </div>
-
-    <p class="subtitle" style="margin-left:auto;margin-right:auto">
-
-      กรุณารอสักครู่
-      <br>
-      ระบบกำลังพยายามรับมือกับความน่ารักของเป้าหมาย
-
-    </p>
-
-    <div id="debris"></div>
-
-  </div>
-
-</section>
-
-
-<!-- ======================================================
-     PART 05 — HOLOGRAM EVIDENCE
-====================================================== -->
-
-<section id="part5">
-
-  <div class="container reveal">
-
-    <div class="kicker">
-      PART 05 // EVIDENCE ARCHIVE
-    </div>
-
-    <h2 class="title">
-      หลักฐาน
-      <br>
-      <span class="gradient">การโดนตก</span>
-    </h2>
-
-    <p class="subtitle">
-      หลังจากตรวจสอบข้อมูลทั้งหมด
-      ทีมวิจัยได้ข้อสรุปเดียวกัน
-      <br>
-      “เออ...น่ารักจริง”
-    </p>
-
-    <div class="evidenceGrid">
-
-      <article class="evidence tilt">
-
-        <div class="evidenceIcon">👀</div>
-
-        <h3>
-          EVIDENCE 01
-        </h3>
-
-        <p>
-          แค่เห็นก็มีอาการอยากยิ้ม
-          ถือเป็นอาการเริ่มต้นของการโดนตก
-        </p>
-
-      </article>
-
-      <article class="evidence tilt">
-
-        <div class="evidenceIcon">💬</div>
-
-        <h3>
-          EVIDENCE 02
-        </h3>
-
-        <p>
-          ไม่มีเรื่องจะคุยก็ยังหาเรื่องทักได้
-          อาการนี้พบในผู้ต้องสงสัยที่อยากรู้จักอีกฝ่าย
-        </p>
-
-      </article>
-
-      <article class="evidence tilt">
-
-        <div class="evidenceIcon">💙</div>
-
-        <h3>
-          EVIDENCE 03
-        </h3>
-
-        <p>
-          หัวใจทำงานผิดปกติ
-          ทุกครั้งที่นึกถึงเป้าหมาย
-        </p>
-
-      </article>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ======================================================
-     PART 06 — MULTIVERSE
-====================================================== -->
-
-<section id="part6">
-
-  <div class="container reveal">
-
-    <div class="kicker">
-      PART 06 // MULTIVERSE SELECTOR
-    </div>
-
-    <h2 class="title">
-      เลือก
-      <span class="gradient">จักรวาล</span>
-    </h2>
-
-    <p class="subtitle">
-      มีสามจักรวาลให้เลือก
-      <br>
-      แต่ไม่ว่ากดอันไหน ระบบก็จะหาทางพากลับมาหาเธออยู่ดี
-    </p>
-
-    <div class="portals">
-
-      <div class="portal" onclick="openPortal(1)">
-
-        <div class="portalInner">
-
-          <div class="portalEmoji">
-            ☁️
-          </div>
-
-          <div class="portalTitle">
-            SOFT WORLD
-          </div>
-
-          <div class="portalSmall">
-            โลกนุ่มนิ่ม
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="portal" onclick="openPortal(2)">
-
-        <div class="portalInner">
-
-          <div class="portalEmoji">
-            🌌
-          </div>
-
-          <div class="portalTitle">
-            SPACE WORLD
-          </div>
-
-          <div class="portalSmall">
-            จักรวาลอันไกลโพ้น
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="portal" onclick="openPortal(3)">
-
-        <div class="portalInner">
-
-          <div class="portalEmoji">
-            💙
-          </div>
-
-          <div class="portalTitle">
-            LOVE WORLD
-          </div>
-
-          <div class="portalSmall">
-            WARNING: DANGEROUS
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ======================================================
-     PART 07 — MEMORY
-====================================================== -->
-
-<section id="part7">
-
-  <div class="container memory reveal">
-
-    <div class="kicker">
-      PART 07 // MEMORY FRAGMENT
-    </div>
-
-    <h2 class="title">
-      แล้วมันก็กลายเป็น...
-    </h2>
-
-    <div class="fragmentCloud">
-
-      <span class="fragment gradient">เรา</span>
-      <span class="fragment">อาจจะ</span>
-      <span class="fragment">อยาก</span>
-      <span class="fragment gradient">รู้จัก</span>
-      <span class="fragment gradient">เธอ</span>
-      <span class="fragment">มากขึ้น</span>
-
-    </div>
-
-    <div class="memoryCard">
-
-      <p class="subtitle" style="margin:auto">
-
-        จากตอนแรกที่คิดว่า
-        <br>
-        “เออ กวนเล่น ๆ ก็ได้”
-        <br><br>
-        กลายเป็น
-        <br>
-        “ทำไมเราอยากคุยกับคนนี้อีกวะ”
-        <br><br>
-        ระบบไม่สามารถอธิบายได้
-        <br>
-        แต่ดูเหมือนคนสร้างเว็บจะเริ่มเขินแล้ว
-
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ======================================================
-     PART 08 — HEART REACTOR
-====================================================== -->
-
-<section id="part8">
-
-  <div class="container reactor reveal">
-
-    <div class="kicker">
-      PART 08 // HEART REACTOR
-    </div>
-
-    <h2 class="title">
-      HEART
-      <span class="gradient">REACTOR</span>
-    </h2>
-
-    <div class="reactorCore">
-
-      <div class="ring r1"></div>
-      <div class="ring r2"></div>
-      <div class="ring r3"></div>
-      <div class="ring r4"></div>
-
-      <div class="core"></div>
-
-    </div>
-
-    <div class="reactorText" id="reactorText">
-      HEART RATE: suspicious...
-    </div>
-
-    <p class="subtitle" style="margin-left:auto;margin-right:auto">
-
-      ตรวจพบพลังงานผิดปกติ
-      <br>
-      สาเหตุเบื้องต้น:
-      คิดถึงใครบางคนบ่อยเกินไป
-
-    </p>
-
-  </div>
-
-</section>
-
-
-<!-- ======================================================
-     PART 09 — BOSS FIGHT
-====================================================== -->
-
-<section id="part9">
-
-  <div class="container boss reveal">
-
-    <div class="kicker">
-      PART 09 // FINAL BOSS
-    </div>
-
-    <div class="bossName">
-      FINAL QUESTION
-    </div>
-
-    <div class="bossFrame">
-
-      <p class="subtitle" style="margin:auto">
-
-        ก่อนเข้าสู่ฉากจบ
-        <br>
-        ระบบมีคำถามสำคัญที่สุด
-        <br><br>
-        แต่ต้องทำลายกำแพงเขินก่อน
-      </p>
-
-      <div class="hpOuter">
-        <div class="hpInner" id="hp"></div>
-      </div>
-
-      <div class="bossStatus" id="bossStatus">
-        BARRIER HP: 100%
-      </div>
-
-      <button class="attack" id="attackButton" onclick="attack()">
-        💥 ATTACK THE AWKWARDNESS
-      </button>
-
-      <div class="finalChoice" id="choices">
-
-        <button class="choice" onclick="goodEnding()">
-          💙 ได้ดิ
-        </button>
-
-        <button class="choice" onclick="maybeEnding()">
-          🫣 ขอคิดก่อน
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ======================================================
-     PART 10 — FINAL
-====================================================== -->
-
-<section id="part10">
-
-  <div class="container ending reveal">
-
-    <div class="kicker">
-      PART 10 // FINAL SCENE
-    </div>
-
-    <div class="finalOrb">
-      <div class="finalHeart">
-        💙
-      </div>
-    </div>
-
-    <h1 class="finalTitle gradient">
-      จบแล้ว...
-    </h1>
-
-    <p class="finalText">
-
-      จริง ๆ แล้วเว็บนี้ไม่ได้มีภารกิจลับอะไรหรอก
-      <br><br>
-
-      แค่อยากหาเรื่องทัก
-      <br>
-      แต่อยากทักแบบที่ไม่ธรรมดาเฉย ๆ 😂
-      <br><br>
-
-      ถ้าเธออ่านมาถึงตรงนี้
-      <br>
-      ก็ถือว่าภารกิจสำเร็จไปครึ่งหนึ่งแล้ว
-      <br><br>
-
-      อีกครึ่งหนึ่ง...
-      <br>
-      ขอเป็นการได้รู้จักเธอมากขึ้นได้ปะ
-      🫣
-
-    </p>
-
-    <div class="signature">
-      PROJECT BLUE-LOVE
-      <br>
-      END OF OPERATION // MAYBE BEGINNING OF SOMETHING ELSE
-    </div>
-
-    <button class="btn finalButton" onclick="secret()">
-      ✦ มีอะไรจะบอกอีกนิด
-    </button>
-
-  </div>
-
-</section>
-
-
-<!-- ======================================================
-     PORTAL OVERLAY
-====================================================== -->
-
-<div id="portalOverlay"
-style="
-position:fixed;
-inset:0;
-z-index:10000;
-display:none;
-place-items:center;
-background:rgba(1,4,12,.88);
-backdrop-filter:blur(25px);
-text-align:center;
-padding:30px;
-">
-
-  <div>
-
-    <div id="portalBig" style="
-      font-size:100px;
-      filter:drop-shadow(0 0 30px #67e8f9);
-    ">
-      💙
-    </div>
-
-    <h2 id="portalName" class="title" style="font-size:55px">
-      LOVE WORLD
-    </h2>
-
-    <p id="portalDescription"
-       class="subtitle"
-       style="margin-left:auto;margin-right:auto">
-    </p>
-
-    <button class="btn" onclick="closePortal()">
-      ← กลับเข้าสู่ภารกิจ
-    </button>
-
-  </div>
+  <div class="loading-percent" id="loadPercent">0%</div>
 
 </div>
 
+<div id="particles"></div>
+<div class="noise"></div>
+<div class="scanlines"></div>
+<div class="vignette"></div>
+<div id="fx"></div>
 
-<!-- ======================================================
-     SECRET ENDING
-====================================================== -->
+<div id="app">
 
-<div class="secretEnding" id="secretEnding">
+<!-- =====================================================
+     PART 01
+===================================================== -->
 
-  <div>
+<section class="scene active" id="s1">
 
-    <div style="
-      font-size:110px;
-      filter:drop-shadow(0 0 35px #67e8f9);
-    ">
+  <div class="s1-stars"></div>
+  <div class="s1-orbit"></div>
+
+  <div class="hud">
+    <div class="hud-logo">PROJECT: MAYBE YOU</div>
+    <div class="hud-part">PART 01 / 10</div>
+    <div class="hud-line"></div>
+  </div>
+
+  <div class="cinematic">
+
+    <div>
+
+      <div class="eyebrow">A VERY IMPORTANT MESSAGE</div>
+
+      <h1 class="hero-title">
+        สวัสดี
+        <span>คนน่ารัก 💙</span>
+      </h1>
+
+      <div class="hero-sub">
+        เว็บนี้ไม่มีสาระเท่าไหร่...
+        <br>
+        แต่มีคนหนึ่งตั้งใจทำให้เธอโดยเฉพาะ
+        <span class="type-cursor">|</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="s1-character">
+    <div class="char-head"></div>
+    <div class="char-body"></div>
+  </div>
+
+  <button class="next" data-next="1">
+    เริ่มภารกิจ
+  </button>
+
+</section>
+
+
+<!-- =====================================================
+     PART 02
+===================================================== -->
+
+<section class="scene" id="s2">
+
+  <div class="hud">
+    <div class="hud-logo">SECRET TERMINAL</div>
+    <div class="hud-part">PART 02 / 10</div>
+  </div>
+
+  <div class="terminal">
+
+    <div class="term-top">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+
+    <div class="term-body">
+
+      <div class="term-line">
+        &gt; booting romantic_protocol.exe
+      </div>
+
+      <div class="term-line">
+        &gt; searching for target...
+      </div>
+
+      <div class="term-line">
+        &gt; target found: <strong>คนน่ารักหนึ่งคน</strong>
+      </div>
+
+      <div class="term-line">
+        &gt; cuteness detected: <span class="warning">9999%</span>
+      </div>
+
+      <div class="term-line">
+        &gt; system status:
+        <span class="warning">OH NO. SHE'S TOO CUTE.</span>
+      </div>
+
+      <div class="term-line">
+        &gt; initiating mission: <strong>MAKE HER SMILE</strong>
+      </div>
+
+      <div class="progress">
+        <span></span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <button class="next" data-next="2">
+    Scan ต่อ →
+  </button>
+
+</section>
+
+
+<!-- =====================================================
+     PART 03
+===================================================== -->
+
+<section class="scene" id="s3">
+
+  <div class="hud">
+    <div class="hud-logo">CHARACTER SCAN</div>
+    <div class="hud-part">PART 03 / 10</div>
+  </div>
+
+  <div class="scan-frame">
+    <div class="scan-beam"></div>
+
+    <div class="scanned-girl">
+
+      <div class="hair"></div>
+
+      <div class="face">
+        <div class="eye l"></div>
+        <div class="eye r"></div>
+        <div class="mouth"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="scan-data">
+    TARGET ANALYSIS<br>
+    ─────────────<br>
+    CUTE: ██████████<br>
+    SMILE: ██████████<br>
+    CHAOS: ███████░░░<br>
+    HEART: ██████████<br>
+    <br>
+    RESULT:<br>
+    TOO ADORABLE
+  </div>
+
+  <button class="next" data-next="3">
+    ผลการสแกน →
+  </button>
+
+</section>
+
+
+<!-- =====================================================
+     PART 04
+===================================================== -->
+
+<section class="scene" id="s4">
+
+  <div class="hud">
+    <div class="hud-logo">CUTENESS OVERLOAD</div>
+    <div class="hud-part">PART 04 / 10</div>
+  </div>
+
+  <div class="cute-core">
+
+    <div class="shockwave"></div>
+    <div class="shockwave"></div>
+    <div class="shockwave"></div>
+
+    <div class="cute-heart">💙</div>
+
+    <div class="cute-word">น่ารัก</div>
+    <div class="cute-word">มาก</div>
+    <div class="cute-word">เกินไป</div>
+    <div class="cute-word">แล้วนะ</div>
+
+  </div>
+
+  <button class="next" data-next="4">
+    กดต่อก่อนระบบระเบิด →
+  </button>
+
+</section>
+
+
+<!-- =====================================================
+     PART 05
+===================================================== -->
+
+<section class="scene" id="s5">
+
+  <div class="hud">
+    <div class="hud-logo">EVIDENCE ROOM</div>
+    <div class="hud-part">PART 05 / 10</div>
+  </div>
+
+  <div class="evidence-title">
+
+    <div class="eyebrow">CASE FILE #001</div>
+
+    <h2>หลักฐานที่ทำให้ชอบ</h2>
+
+  </div>
+
+  <div class="evidence-grid">
+
+    <div class="e-card">
+
+      <div class="e-icon">✨</div>
+
+      <h3>ข้อหา #01</h3>
+
+      <p>
+        มีความน่ารักเกินกว่าที่กฎหมาย
+        กำหนดไว้ และไม่มีทีท่าว่าจะหยุด
+      </p>
+
+    </div>
+
+    <div class="e-card">
+
+      <div class="e-icon">👀</div>
+
+      <h3>ข้อหา #02</h3>
+
+      <p>
+        เป็นบุคคลที่ทำให้คนบางคน
+        เผลอยิ้มหน้าจอโดยไม่รู้ตัว
+      </p>
+
+    </div>
+
+    <div class="e-card">
+
+      <div class="e-icon">💙</div>
+
+      <h3>ข้อหา #03</h3>
+
+      <p>
+        ขโมยพื้นที่ในหัวไปโดยไม่ได้รับอนุญาต
+        และดูเหมือนจะไม่คืนด้วย
+      </p>
+
+    </div>
+
+  </div>
+
+  <button class="next" data-next="5">
+    เปิดประตูมิติ →
+  </button>
+
+</section>
+
+
+<!-- =====================================================
+     PART 06
+===================================================== -->
+
+<section class="scene" id="s6">
+
+  <div class="hud">
+    <div class="hud-logo">DIMENSION SELECT</div>
+    <div class="hud-part">PART 06 / 10</div>
+  </div>
+
+  <div class="portal-title">
+
+    <div class="eyebrow">CHOOSE YOUR DESTINY</div>
+
+    <h2>เลือกโลกที่อยากไป</h2>
+
+  </div>
+
+  <div class="portals">
+
+    <div class="portal" data-world="cute">
+
+      <div class="portal-content">
+        <div class="portal-icon">🌸</div>
+        <strong>CUTE WORLD</strong>
+        <p>โลกแห่งความน่ารัก</p>
+      </div>
+
+    </div>
+
+    <div class="portal" data-world="chaos">
+
+      <div class="portal-content">
+        <div class="portal-icon">💥</div>
+        <strong>CHAOS WORLD</strong>
+        <p>โลกที่ระบบพัง</p>
+      </div>
+
+    </div>
+
+    <div class="portal" data-world="love">
+
+      <div class="portal-content">
+        <div class="portal-icon">💙</div>
+        <strong>LOVE WORLD</strong>
+        <p>อันนี้อันตรายสุด</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="portalResult"></div>
+
+  <button class="next" data-next="6">
+    ไปต่อ →
+  </button>
+
+</section>
+
+
+<!-- =====================================================
+     PART 07
+===================================================== -->
+
+<section class="scene" id="s7">
+
+  <div class="hud">
+    <div class="hud-logo">MEMORY FRAGMENT</div>
+    <div class="hud-part">PART 07 / 10</div>
+  </div>
+
+  <div class="memory">
+
+    <div class="fragment">
+      👀<br>
+      <br>
+      "แค่เห็นก็รู้สึกว่า<br>วันนี้น่าจะเป็นวันที่ดี"
+    </div>
+
+    <div class="fragment">
+      ✨<br>
+      <br>
+      "บางคนไม่ต้องพยายาม<br>ก็น่ารักได้เฉยเลย"
+    </div>
+
+    <div class="fragment">
+      ☁️<br>
+      <br>
+      "อยู่ดี ๆ ก็โผล่เข้ามา<br>ในความคิด"
+    </div>
+
+    <div class="fragment">
+      🎮<br>
+      <br>
+      "เหมือนเจอ secret character<br>ที่ไม่อยากกดข้าม"
+    </div>
+
+    <div class="fragment">
+      💙<br>
+      <br>
+      "แล้วก็ไม่รู้เหมือนกันว่า<br>ตั้งแต่เมื่อไหร่"
+    </div>
+
+  </div>
+
+  <div class="memory-center">
+
+    <div class="eyebrow">FRAGMENT RESTORED</div>
+
+    <h2>อ๋อ...</h2>
+
+    <p>นี่เองเหตุผลที่เว็บนี้เกิดขึ้น</p>
+
+  </div>
+
+  <button class="next" data-next="7">
+    เปิด Heart Reactor →
+  </button>
+
+</section>
+
+
+<!-- =====================================================
+     PART 08
+===================================================== -->
+
+<section class="scene" id="s8">
+
+  <div class="hud">
+    <div class="hud-logo">HEART REACTOR</div>
+    <div class="hud-part">PART 08 / 10</div>
+  </div>
+
+  <div class="reactor">
+
+    <div class="reactor-ring"></div>
+    <div class="reactor-ring"></div>
+    <div class="reactor-ring"></div>
+
+    <div class="reactor-heart">💙</div>
+
+  </div>
+
+  <div class="reactor-text">
+
+    <h2>HEART REACTOR: <span>OVERCHARGED</span></h2>
+
+    <p>
+      ระดับความเขินกำลังเพิ่มขึ้น...
+      <br>
+      กรุณาอย่ามองหน้าคนทำเว็บนานเกินไป
+    </p>
+
+  </div>
+
+  <button class="next" data-next="8">
+    เข้าสู่ FINAL BOSS →
+  </button>
+
+</section>
+
+
+<!-- =====================================================
+     PART 09
+===================================================== -->
+
+<section class="scene" id="s9">
+
+  <div class="hud">
+    <div class="hud-logo">FINAL BOSS</div>
+    <div class="hud-part">PART 09 / 10</div>
+  </div>
+
+  <div class="boss">
+
+    <div class="boss-warning">
+      ⚠ CRITICAL QUESTION DETECTED ⚠
+    </div>
+
+    <h1 class="boss-title">
+      FINAL QUESTION
+    </h1>
+
+    <div class="boss-sub">
+      พร้อมรับดาเมจหรือยัง
+    </div>
+
+    <div class="charge-area">
+
+      <div class="charge">
+        <div class="charge-fill" id="chargeFill"></div>
+      </div>
+
+      <button class="charge-button" id="chargeButton">
+        กดค้างเพื่อชาร์จความกล้า 💙
+      </button>
+
+      <div class="boss-result" id="bossResult"></div>
+
+    </div>
+
+  </div>
+
+  <button class="next" data-next="9">
+    ไปดูคำถามสุดท้าย →
+  </button>
+
+</section>
+
+
+<!-- =====================================================
+     PART 10
+===================================================== -->
+
+<section class="scene" id="s10">
+
+  <div class="final-stars"></div>
+
+  <div class="hud">
+    <div class="hud-logo">PROJECT COMPLETE</div>
+    <div class="hud-part">PART 10 / 10</div>
+  </div>
+
+  <div class="final">
+
+    <div class="final-small">
+      MISSION STATUS: SUCCESS
+    </div>
+
+    <h1>
+      ขอจีบได้ไหม
+      <br>
+      💙
+    </h1>
+
+    <p>
+      จริง ๆ แล้วที่ทำเว็บนี้มาไม่ได้มีภารกิจอะไรยิ่งใหญ่หรอก
+      <br>
+      แค่อยากทำอะไรที่ทำให้เธอยิ้มได้
+      <br>
+      แล้วก็อยากให้รู้ว่า...
+      <br><br>
+      <strong>มีคนหนึ่งคิดว่าเธอน่ารักมากจริง ๆ</strong>
+    </p>
+
+    <div class="final-heart">
       💙
     </div>
 
-    <div class="kicker">
-      SECRET ENDING UNLOCKED
-    </div>
-
-    <h2 class="title">
-      จริง ๆ แล้ว...
-    </h2>
-
-    <p class="finalText">
-
-      คนทำเว็บไม่ได้เก่งเรื่องจีบหรอก
-      <br>
-      เลยต้องใช้ HTML มาช่วย 😂
-      <br><br>
-
-      แต่ถ้าการทำเว็บบ้า ๆ นี่
-      <br>
-      ทำให้เธอยิ้มได้สักนิด
-      <br>
-      ก็คุ้มแล้วนะ
-
-    </p>
-
-    <button class="btn" onclick="closeSecret()">
-      🫣 โอเค เขินแล้ว ปิดก่อน
+    <button class="restart" id="restart">
+      ดูใหม่ตั้งแต่ต้น ↻
     </button>
 
   </div>
+
+</section>
 
 </div>
 
@@ -2253,677 +2093,228 @@ padding:30px;
 <script>
 
 /* =========================================================
-   STAR FIELD
+   BASIC SETUP
 ========================================================= */
 
-const canvas=document.getElementById("space");
-const ctx=canvas.getContext("2d");
+const scenes = [...document.querySelectorAll(".scene")];
+let current = 0;
 
-let W,H;
-let stars=[];
-let shootingStars=[];
+const body = document.body;
 
-function resizeCanvas(){
+/* =========================================================
+   PARTICLES
+========================================================= */
 
-  W=canvas.width=window.innerWidth;
-  H=canvas.height=window.innerHeight;
+const particleBox = document.getElementById("particles");
 
-  stars=[];
+for(let i=0;i<80;i++){
 
-  const amount=Math.min(
-    260,
-    Math.floor((W*H)/7000)
+  const p = document.createElement("div");
+
+  p.className = "particle";
+
+  p.style.left = Math.random()*100 + "%";
+  p.style.animationDuration = (6 + Math.random()*14) + "s";
+  p.style.animationDelay = (-Math.random()*15) + "s";
+  p.style.setProperty(
+    "--drift",
+    ((Math.random()-.5)*220) + "px"
   );
 
-  for(let i=0;i<amount;i++){
+  p.style.opacity = .2 + Math.random()*.8;
 
-    stars.push({
-      x:Math.random()*W,
-      y:Math.random()*H,
-      r:Math.random()*1.6+.2,
-      s:Math.random()*.35+.05,
-      a:Math.random()*.8+.15,
-      tw:Math.random()*Math.PI*2
-    });
-
-  }
-
+  particleBox.appendChild(p);
 }
 
-resizeCanvas();
-window.addEventListener("resize",resizeCanvas);
 
-function starLoop(){
+/* =========================================================
+   LOADING — MAXIMUM CHAOS
+========================================================= */
 
-  ctx.clearRect(0,0,W,H);
+const loading = document.getElementById("loading");
+const bar = document.getElementById("loadBar");
+const percent = document.getElementById("loadPercent");
 
-  for(const s of stars){
+let progress = 0;
 
-    s.y+=s.s;
-    s.tw+=.025;
+body.classList.add("loading-chaos");
 
-    if(s.y>H){
-      s.y=0;
-      s.x=Math.random()*W;
-    }
+const loadingTimer = setInterval(()=>{
 
-    const alpha=s.a+
-      Math.sin(s.tw)*.12;
+  progress += Math.floor(Math.random()*7)+2;
 
-    ctx.beginPath();
-    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-    ctx.fillStyle=
-      `rgba(180,240,255,${alpha})`;
-    ctx.fill();
+  if(progress >= 100){
+    progress = 100;
+    clearInterval(loadingTimer);
+
+    bar.style.width = "100%";
+    percent.textContent = "100%";
+
+    setTimeout(()=>{
+
+      /*
+        รอบนี้คือ "เครื่องจะระเบิด"
+      */
+
+      body.classList.add("flash");
+
+      setTimeout(()=>{
+
+        body.classList.remove("loading-chaos");
+
+        loading.classList.add("flash");
+
+        setTimeout(()=>{
+
+          loading.style.display = "none";
+
+        },700);
+
+      },350);
+
+    },700);
 
   }
 
-  for(const s of shootingStars){
+  bar.style.width = progress + "%";
+  percent.textContent = progress + "%";
 
-    s.x+=s.vx;
-    s.y+=s.vy;
-    s.life-=.02;
+},90);
 
-    ctx.beginPath();
-    ctx.moveTo(s.x,s.y);
-    ctx.lineTo(
-      s.x-s.vx*10,
-      s.y-s.vy*10
+
+/* =========================================================
+   POINTER PARALLAX
+========================================================= */
+
+document.addEventListener("pointermove",e=>{
+
+  const x = e.clientX / window.innerWidth * 100;
+  const y = e.clientY / window.innerHeight * 100;
+
+  document.documentElement.style.setProperty("--mx",x+"%");
+  document.documentElement.style.setProperty("--my",y+"%");
+
+});
+
+
+/* =========================================================
+   SCENE TRANSITION
+========================================================= */
+
+function showScene(index){
+
+  if(index < 0) index = 0;
+  if(index >= scenes.length) index = scenes.length-1;
+
+  scenes.forEach((scene,i)=>{
+
+    scene.classList.toggle(
+      "active",
+      i === index
     );
 
-    ctx.strokeStyle=
-      `rgba(180,245,255,${s.life})`;
-
-    ctx.lineWidth=1.5;
-    ctx.stroke();
-
-  }
-
-  shootingStars=
-    shootingStars.filter(s=>s.life>0);
-
-  requestAnimationFrame(starLoop);
-
-}
-
-starLoop();
-
-setInterval(()=>{
-
-  if(Math.random()>.55)return;
-
-  shootingStars.push({
-    x:Math.random()*W,
-    y:Math.random()*H*.5,
-    vx:10,
-    vy:5,
-    life:1
   });
 
-},1400);
+  current = index;
 
-
-/* =========================================================
-   CURSOR
-========================================================= */
-
-const glow=document.getElementById("cursorGlow");
-const dot=document.getElementById("cursorDot");
-
-let mx=0,my=0;
-let gx=0,gy=0;
-
-window.addEventListener("pointermove",e=>{
-
-  mx=e.clientX;
-  my=e.clientY;
-
-  dot.style.left=mx+"px";
-  dot.style.top=my+"px";
-
-});
-
-function cursorLoop(){
-
-  gx+=(mx-gx)*.08;
-  gy+=(my-gy)*.08;
-
-  glow.style.left=gx+"px";
-  glow.style.top=gy+"px";
-
-  requestAnimationFrame(cursorLoop);
+  screenFlash();
 
 }
 
-cursorLoop();
-
 
 /* =========================================================
-   REVEAL
+   NEXT BUTTON
 ========================================================= */
 
-const observer=
-new IntersectionObserver(entries=>{
+document.querySelectorAll(".next").forEach(btn=>{
 
-  entries.forEach(entry=>{
+  btn.addEventListener("click",()=>{
 
-    if(entry.isIntersecting){
+    const next = Number(btn.dataset.next);
 
-      entry.target.classList.add("visible");
+    soundClick();
 
-      if(entry.target.id==="part4"){
-        startOverload();
-      }
+    dramaticBurst(
+      window.innerWidth/2,
+      window.innerHeight/2
+    );
 
-      if(entry.target.id==="part7"){
-        startFragments();
-      }
-
-    }
-
-  });
-
-},{threshold:.18});
-
-document
-  .querySelectorAll(".reveal")
-  .forEach(x=>observer.observe(x));
-
-
-/* =========================================================
-   BOOT
-========================================================= */
-
-const bootLines=[
-  "INITIALIZING BLUE-LOVE SYSTEM...",
-  "LOADING COURAGE... 12%",
-  "LOADING CONFIDENCE... 3%",
-  "FLIRTING MODULE... ERROR",
-  "SWITCHING TO CUTE MODE...",
-  "TARGET LOCKED.",
-  "SYSTEM READY."
-];
-
-let bootIndex=0;
-
-function boot(){
-
-  if(bootIndex>=bootLines.length)return;
-
-  document.getElementById("boot").textContent=
-    bootLines[bootIndex];
-
-  bootIndex++;
-
-  setTimeout(boot,650);
-
-}
-
-boot();
-
-
-/* =========================================================
-   TERMINAL
-========================================================= */
-
-const logs=[
-  "> establishing secure connection...",
-  "> scanning available targets...",
-  "> target found.",
-  "> analyzing personality...",
-  "> analyzing cuteness...",
-  "> ERROR: value too high.",
-  "> calculating probability of making her smile...",
-  "> probability: promising.",
-  "> secondary objective: get to know her.",
-  "> WARNING: creator is nervous.",
-  "> mission status: GO."
-];
-
-let terminalStarted=false;
-
-function startTerminal(){
-
-  if(terminalStarted)return;
-
-  terminalStarted=true;
-
-  const box=document.getElementById("terminalText");
-
-  let i=0;
-
-  function next(){
-
-    if(i>=logs.length){
-
-      box.insertAdjacentHTML(
-        "beforeend",
-        "<br><span class='fakeCursor'></span>"
-      );
-
-      return;
-
-    }
-
-    const line=document.createElement("div");
-
-    line.className=
-      "log "+(
-        logs[i].includes("ERROR")||
-        logs[i].includes("WARNING")
-        ? "warn":""
-      );
-
-    line.textContent=logs[i];
-
-    box.appendChild(line);
-
-    requestAnimationFrame(()=>{
-      line.classList.add("show");
-    });
-
-    i++;
-
-    setTimeout(next,300);
-
-  }
-
-  next();
-
-}
-
-const terminalObs=
-new IntersectionObserver(entries=>{
-
-  if(entries[0].isIntersecting){
-    startTerminal();
-  }
-
-},{threshold:.35});
-
-terminalObs.observe(
-  document.getElementById("part2")
-);
-
-
-/* =========================================================
-   PARALLAX CHARACTER
-========================================================= */
-
-const scanner=
-document.getElementById("scanCharacter");
-
-window.addEventListener("pointermove",e=>{
-
-  if(!scanner)return;
-
-  const r=scanner.getBoundingClientRect();
-
-  if(
-    e.clientX<r.left ||
-    e.clientX>r.right ||
-    e.clientY<r.top ||
-    e.clientY>r.bottom
-  )return;
-
-  const x=
-    (e.clientX-r.left)/r.width-.5;
-
-  const y=
-    (e.clientY-r.top)/r.height-.5;
-
-  scanner.style.transform=
-    `rotateY(${x*5}deg) rotateX(${-y*5}deg)`;
-
-});
-
-scanner.addEventListener(
-  "pointerleave",
-  ()=>scanner.style.transform=""
-);
-
-
-/* =========================================================
-   PART 04 — CATASTROPHIC SHAKE
-========================================================= */
-
-let overloadStarted=false;
-
-function startOverload(){
-
-  if(overloadStarted)return;
-
-  overloadStarted=true;
-
-  const fill=
-    document.getElementById("loadInner");
-
-  const percent=
-    document.getElementById("loadPercent");
-
-  const error=
-    document.getElementById("errorText");
-
-  let value=0;
-
-  const timer=setInterval(()=>{
-
-    value+=
-      value<80
-      ? Math.random()*5+2
-      : Math.random()*1.8;
-
-    if(value>=100){
-
-      value=100;
-      clearInterval(timer);
-
-      fill.style.width="100%";
-
-      percent.textContent=
-        "SYSTEM LOADING... 100%";
-
-      error.textContent=
-        "CRITICAL ERROR: CUTENESS EXCEEDS SAFE LIMIT";
-
-      setTimeout(disaster,650);
-
-    }else{
-
-      fill.style.width=value+"%";
-
-      percent.textContent=
-        `SYSTEM LOADING... ${Math.floor(value)}%`;
-
-      if(value>70){
-        error.textContent=
-          "WARNING: HEART REACTOR UNSTABLE";
-      }
-
-      if(value>88){
-        error.textContent=
-          "WARNING: REALITY INTEGRITY 43%";
-      }
-
-    }
-
-  },120);
-
-}
-
-
-/* =========================================================
-   THE BIG ONE
-========================================================= */
-
-function disaster(){
-
-  const messages=[
-    "CRITICAL ERROR",
-    "CUTE.EXE HAS STOPPED RESPONDING",
-    "HEART REACTOR OVERLOAD",
-    "REALITY INTEGRITY: 12%",
-    "WHY IS SHE THIS CUTE?",
-    "SYSTEM HAS GIVEN UP"
-  ];
-
-  let i=0;
-
-  const error=
-    document.getElementById("errorText");
-
-  const messageTimer=
-    setInterval(()=>{
-
-      error.textContent=
-        messages[i%messages.length];
-
-      i++;
-
+    setTimeout(()=>{
+      showScene(next+1);
     },180);
 
-  /* escalating shake */
-
-  catastrophicShake();
-
-  flash();
-  glitch();
-
-  setTimeout(()=>{
-    blackout();
-  },420);
-
-  setTimeout(()=>{
-    flash();
-    explodeDebris();
-  },900);
-
-  setTimeout(()=>{
-    clearInterval(messageTimer);
-
-    error.textContent=
-      "SYSTEM STATUS: ...okay. ยอมแล้ว.";
-  },1900);
-
-}
-
-
-/* =========================================================
-   INSANE SCREEN SHAKE
-========================================================= */
-
-function catastrophicShake(){
-
-  const duration=1900;
-  const start=performance.now();
-
-  function frame(now){
-
-    const elapsed=now-start;
-    const p=Math.min(elapsed/duration,1);
-
-    /*
-      Starts hard,
-      becomes progressively violent,
-      then collapses into silence.
-    */
-
-    const intensity=
-      p<.78
-      ? 5 + p*65
-      : 65*(1-p)/.22;
-
-    const x=
-      (Math.random()-.5)*intensity*2;
-
-    const y=
-      (Math.random()-.5)*intensity*2;
-
-    const rot=
-      (Math.random()-.5)*intensity*.15;
-
-    const scale=
-      1+
-      (Math.random()-.5)*Math.min(.045,intensity*.0004);
-
-    const skew=
-      (Math.random()-.5)*Math.min(2.5,intensity*.035);
-
-    document.body.style.transform=
-      `translate3d(${x}px,${y}px,0)
-       rotate(${rot}deg)
-       scale(${scale})
-       skewX(${skew}deg)`;
-
-    if(p<1){
-
-      requestAnimationFrame(frame);
-
-    }else{
-
-      document.body.style.transform="";
-
-    }
-
-  }
-
-  requestAnimationFrame(frame);
-
-}
-
-
-/* =========================================================
-   FLASH / GLITCH / BLACKOUT
-========================================================= */
-
-function flash(){
-
-  const el=document.getElementById("flash");
-
-  el.classList.remove("fire");
-
-  void el.offsetWidth;
-
-  el.classList.add("fire");
-
-}
-
-function glitch(){
-
-  const el=document.getElementById("glitch");
-
-  el.classList.remove("fire");
-
-  void el.offsetWidth;
-
-  el.classList.add("fire");
-
-}
-
-function blackout(){
-
-  const el=document.getElementById("blackout");
-
-  el.classList.remove("active");
-
-  void el.offsetWidth;
-
-  el.classList.add("active");
-
-}
-
-
-/* =========================================================
-   DEBRIS EXPLOSION
-========================================================= */
-
-function explodeDebris(){
-
-  const holder=
-    document.getElementById("debris");
-
-  const symbols=[
-    "💙",
-    "♡",
-    "✦",
-    "✨",
-    "01",
-    "♥",
-    "CUTE",
-    "!",
-    "ERROR",
-    "🫠"
-  ];
-
-  for(let i=0;i<120;i++){
-
-    const p=document.createElement("span");
-
-    p.textContent=
-      symbols[
-        Math.floor(Math.random()*symbols.length)
-      ];
-
-    p.style.position="absolute";
-    p.style.left="50%";
-    p.style.top="50%";
-    p.style.fontSize=
-      (8+Math.random()*26)+"px";
-    p.style.color=
-      Math.random()>.5
-      ? "#67e8f9"
-      : "#ffffff";
-    p.style.pointerEvents="none";
-
-    holder.appendChild(p);
-
-    const angle=
-      Math.random()*Math.PI*2;
-
-    const distance=
-      150+Math.random()*650;
-
-    const x=
-      Math.cos(angle)*distance;
-
-    const y=
-      Math.sin(angle)*distance;
-
-    p.animate([
-      {
-        transform:
-          "translate(-50%,-50%) scale(.2) rotate(0)",
-        opacity:1
-      },
-      {
-        transform:
-          `translate(
-            calc(-50% + ${x}px),
-            calc(-50% + ${y}px)
-          )
-          scale(1.4)
-          rotate(${Math.random()*720-360}deg)`,
-        opacity:0
-      }
-    ],{
-      duration:900+Math.random()*1300,
-      easing:"cubic-bezier(.05,.8,.15,1)"
-    }).onfinish=()=>p.remove();
-
-  }
-
-}
-
-
-/* =========================================================
-   EVIDENCE TILT
-========================================================= */
-
-document.querySelectorAll(".tilt").forEach(card=>{
-
-  card.addEventListener("pointermove",e=>{
-
-    const r=card.getBoundingClientRect();
-
-    const x=
-      (e.clientX-r.left)/r.width-.5;
-
-    const y=
-      (e.clientY-r.top)/r.height-.5;
-
-    card.style.transform=
-      `perspective(900px)
-       rotateX(${-y*12}deg)
-       rotateY(${x*12}deg)
-       translateY(-8px)`;
-
   });
 
-  card.addEventListener("pointerleave",()=>{
+});
 
-    card.style.transform="";
 
-  });
+/* =========================================================
+   SCREEN FLASH
+========================================================= */
+
+function screenFlash(){
+
+  body.classList.remove("flash");
+
+  void body.offsetWidth;
+
+  body.classList.add("flash");
+
+}
+
+
+/* =========================================================
+   CLICK PARTICLES
+========================================================= */
+
+document.addEventListener("pointerdown",e=>{
+
+  const ring = document.createElement("div");
+
+  ring.className = "tap-ring";
+
+  ring.style.left = e.clientX + "px";
+  ring.style.top = e.clientY + "px";
+
+  document.body.appendChild(ring);
+
+  setTimeout(()=>{
+    ring.remove();
+  },700);
+
+  for(let i=0;i<5;i++){
+
+    const heart = document.createElement("div");
+
+    heart.className = "heart-particle";
+    heart.textContent =
+      Math.random()>.5 ? "💙" : "✨";
+
+    heart.style.left = e.clientX + "px";
+    heart.style.top = e.clientY + "px";
+
+    heart.style.setProperty(
+      "--hx",
+      ((Math.random()-.5)*180)+"px"
+    );
+
+    heart.style.setProperty(
+      "--hy",
+      (-40-Math.random()*160)+"px"
+    );
+
+    heart.style.setProperty(
+      "--hr",
+      ((Math.random()-.5)*90)+"deg"
+    );
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+      heart.remove();
+    },1200);
+
+  }
 
 });
 
@@ -2932,553 +2323,351 @@ document.querySelectorAll(".tilt").forEach(card=>{
    PORTALS
 ========================================================= */
 
-const portalData={
+document.querySelectorAll(".portal").forEach(portal=>{
 
-  1:{
-    emoji:"☁️",
-    title:"SOFT WORLD",
-    text:
-      "โลกที่ทุกอย่างนุ่มนิ่ม และคนสร้างเว็บทำตัวเขิน ๆ",
-    bg:"rgba(100,200,255,.18)"
-  },
+  portal.addEventListener("click",()=>{
 
-  2:{
-    emoji:"🌌",
-    title:"SPACE WORLD",
-    text:
-      "ในจักรวาลนับล้าน ระบบกลับเจอเธอพอดี",
-    bg:"rgba(100,100,255,.2)"
-  },
+    const world = portal.dataset.world;
 
-  3:{
-    emoji:"💙",
-    title:"LOVE WORLD",
-    text:
-      "WARNING: ระบบตรวจพบว่าคนสร้างเว็บเริ่มจีบจริง",
-    bg:"rgba(56,189,248,.25)"
-  }
+    const result =
+      document.getElementById("portalResult");
 
-};
+    let message = "";
 
-function openPortal(id){
-
-  const data=portalData[id];
-
-  document.getElementById("portalBig")
-    .textContent=data.emoji;
-
-  document.getElementById("portalName")
-    .textContent=data.title;
-
-  document.getElementById("portalDescription")
-    .textContent=data.text;
-
-  document.getElementById("portalOverlay")
-    .style.display="grid";
-
-  document.getElementById("portalOverlay")
-    .style.background=
-      `radial-gradient(
-        circle,
-        ${data.bg},
-        rgba(1,4,12,.95) 70%
-      )`;
-
-  flash();
-
-}
-
-function closePortal(){
-
-  document.getElementById("portalOverlay")
-    .style.display="none";
-
-}
-
-
-/* =========================================================
-   MEMORY FRAGMENTS
-========================================================= */
-
-let fragmentsStarted=false;
-
-function startFragments(){
-
-  if(fragmentsStarted)return;
-
-  fragmentsStarted=true;
-
-  const fragments=
-    document.querySelectorAll(".fragment");
-
-  fragments.forEach((el,i)=>{
-
-    el.style.setProperty(
-      "--x",
-      `${Math.random()*500-250}px`
-    );
-
-    el.style.setProperty(
-      "--y",
-      `${Math.random()*300-150}px`
-    );
-
-    el.style.setProperty(
-      "--r",
-      `${Math.random()*80-40}deg`
-    );
-
-    setTimeout(()=>{
-
-      el.classList.add("show");
-
-    },i*230);
-
-  });
-
-}
-
-
-/* =========================================================
-   REACTOR TEXT
-========================================================= */
-
-const reactorMessages=[
-  "HEART RATE: 87 BPM",
-  "HEART RATE: 104 BPM",
-  "HEART RATE: 127 BPM",
-  "HEART RATE: 151 BPM",
-  "HEART RATE: TOO CUTE",
-  "SYSTEM: ขอคุยด้วยได้ปะ"
-];
-
-let reactorIndex=0;
-
-setInterval(()=>{
-
-  const el=
-    document.getElementById("reactorText");
-
-  el.style.opacity="0";
-
-  setTimeout(()=>{
-
-    el.textContent=
-      reactorMessages[reactorIndex];
-
-    el.style.opacity="1";
-
-    reactorIndex=
-      (reactorIndex+1)%
-      reactorMessages.length;
-
-  },250);
-
-},1700);
-
-
-/* =========================================================
-   BOSS
-========================================================= */
-
-let hp=100;
-
-function attack(){
-
-  hp-=20;
-
-  if(hp<0)hp=0;
-
-  document.getElementById("hp")
-    .style.width=hp+"%";
-
-  const status=
-    document.getElementById("bossStatus");
-
-  catastrophicMiniShake();
-
-  if(hp>80){
-
-    status.textContent=
-      "BARRIER: barely scratched.";
-
-  }else if(hp>60){
-
-    status.textContent=
-      "BARRIER: เริ่มมีรอยร้าวแล้ว";
-
-  }else if(hp>40){
-
-    status.textContent=
-      "BARRIER: ความเขินเริ่มแตก";
-
-  }else if(hp>20){
-
-    status.textContent=
-      "BARRIER: ใกล้แตกแล้ว...";
-
-  }else if(hp>0){
-
-    status.textContent=
-      "BARRIER: LAST HIT.";
-
-  }else{
-
-    status.textContent=
-      "💥 BARRIER DESTROYED.";
-
-    document.getElementById("attackButton")
-      .style.display="none";
-
-    document.getElementById("choices")
-      .classList.add("show");
-
-    flash();
-    explodeDebris();
-
-  }
-
-}
-
-function catastrophicMiniShake(){
-
-  const original=
-    document.body.style.transform;
-
-  let count=0;
-
-  const timer=setInterval(()=>{
-
-    const power=
-      Math.max(3,16-count);
-
-    const x=(Math.random()-.5)*power*2;
-    const y=(Math.random()-.5)*power*2;
-
-    document.body.style.transform=
-      `translate(${x}px,${y}px)`;
-
-    count++;
-
-    if(count>14){
-
-      clearInterval(timer);
-      document.body.style.transform=
-        original;
-
+    if(world === "cute"){
+      message = "🌸 ยินดีต้อนรับสู่โลกที่ทุกอย่างน่ารักเหมือนเธอ";
     }
 
-  },35);
+    if(world === "chaos"){
+      message = "💥 ERROR 404: ความน่ารักเกินขีดจำกัด";
+    }
 
-}
+    if(world === "love"){
+      message = "💙 อันนี้เข้าแล้วอาจกลับออกมายากนะ...";
+    }
 
+    result.textContent = message;
+    result.classList.add("show");
 
-/* =========================================================
-   CHOICES
-========================================================= */
+    soundClick();
 
-function goodEnding(){
-
-  flash();
-  explodeDebris();
-
-  setTimeout(()=>{
-
-    go(10);
-
-    setTimeout(()=>{
-
-      document.querySelector("#part10 .finalText")
-        .innerHTML=`
-          โอเค...
-          <br><br>
-          งั้นภารกิจนี้ถือว่าสำเร็จแล้ว 💙
-          <br><br>
-          ที่เหลือไม่ต้องให้ HTML ทำแทนแล้ว
-          <br>
-          ไว้ค่อยทำความรู้จักกันจริง ๆ ดีกว่า
-          🫣
-        `;
-
-    },800);
-
-  },400);
-
-}
-
-function maybeEnding(){
-
-  document.getElementById("bossStatus")
-    .textContent=
-      "SYSTEM: ไม่เป็นไรครับ ไม่รีบ 😭💙";
-
-  document.getElementById("choices")
-    .style.opacity=".65";
-
-}
-
-
-/* =========================================================
-   SECRET ENDING
-========================================================= */
-
-function secret(){
-
-  document.getElementById("secretEnding")
-    .classList.add("show");
-
-  flash();
-  explodeDebris();
-
-}
-
-function closeSecret(){
-
-  document.getElementById("secretEnding")
-    .classList.remove("show");
-
-}
-
-
-/* =========================================================
-   SCROLL PROGRESS
-========================================================= */
-
-window.addEventListener("scroll",()=>{
-
-  const max=
-    document.documentElement.scrollHeight-
-    window.innerHeight;
-
-  const p=
-    Math.max(
-      0,
-      Math.min(100,
-        window.scrollY/max*100
-      )
+    dramaticBurst(
+      window.innerWidth/2,
+      window.innerHeight/2
     );
 
-  document.getElementById("progress")
-    .style.width=p+"%";
+    setTimeout(()=>{
+      result.classList.remove("show");
+    },2200);
+
+  });
 
 });
 
 
 /* =========================================================
-   NAVIGATION
+   3D EVIDENCE CARDS
 ========================================================= */
 
-function go(n){
+document.querySelectorAll(".e-card").forEach(card=>{
 
-  const el=
-    document.getElementById("part"+n);
+  card.addEventListener("pointermove",e=>{
 
-  if(!el)return;
+    const rect = card.getBoundingClientRect();
 
-  el.scrollIntoView({
-    behavior:"smooth"
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const rx =
+      ((y/rect.height)-.5)*-15;
+
+    const ry =
+      ((x/rect.width)-.5)*15;
+
+    card.style.transform =
+      `perspective(700px)
+       rotateX(${rx}deg)
+       rotateY(${ry}deg)
+       translateY(-5px)`;
+
   });
 
-}
+  card.addEventListener("pointerleave",()=>{
+
+    card.style.transform =
+      "perspective(700px) rotateX(0) rotateY(0)";
+
+  });
+
+});
 
 
 /* =========================================================
-   AUDIO — GENERATED AMBIENCE
+   BOSS CHARGE
 ========================================================= */
 
-let audioCtx=null;
-let drone=null;
-let audioOn=false;
+const chargeButton =
+  document.getElementById("chargeButton");
 
-function startAudio(){
+const chargeFill =
+  document.getElementById("chargeFill");
 
-  if(!audioCtx){
+const bossResult =
+  document.getElementById("bossResult");
 
-    audioCtx=
-      new(
-        window.AudioContext||
-        window.webkitAudioContext
-      )();
+let charging = false;
+let charge = 0;
+let chargeInterval;
 
-  }
+function startCharge(){
 
-  if(audioOn)return;
+  if(charging) return;
 
-  drone=
-    audioCtx.createOscillator();
+  charging = true;
 
-  const gain=
-    audioCtx.createGain();
+  chargeInterval = setInterval(()=>{
 
-  drone.type="sine";
-  drone.frequency.value=110;
+    charge += 2.5;
 
-  gain.gain.value=.012;
+    if(charge >= 100){
 
-  drone.connect(gain);
-  gain.connect(audioCtx.destination);
+      charge = 100;
 
-  drone.start();
+      clearInterval(chargeInterval);
 
-  audioOn=true;
+      bossResult.innerHTML =
+        "💥 CRITICAL HIT! ความกล้าถูกชาร์จเต็มแล้ว<br><br>" +
+        "คำถามสุดท้ายอยู่ข้างหน้า...";
 
-  document.getElementById("music")
-    .classList.add("active");
+      dramaticBurst(
+        window.innerWidth/2,
+        window.innerHeight/2
+      );
 
-}
+      screenFlash();
 
-function stopAudio(){
-
-  if(drone){
-
-    drone.stop();
-    drone=null;
-
-  }
-
-  audioOn=false;
-
-  document.getElementById("music")
-    .classList.remove("active");
-
-}
-
-document.getElementById("music")
-  .addEventListener("click",()=>{
-
-    if(audioOn){
-      stopAudio();
-    }else{
-      startAudio();
     }
 
-  });
+    chargeFill.style.width =
+      charge + "%";
 
-
-/* =========================================================
-   CLICK SFX
-========================================================= */
-
-function clickSfx(){
-
-  if(!audioCtx)return;
-
-  const osc=
-    audioCtx.createOscillator();
-
-  const gain=
-    audioCtx.createGain();
-
-  osc.type="sine";
-  osc.frequency.value=600;
-
-  gain.gain.value=.035;
-
-  osc.connect(gain);
-  gain.connect(audioCtx.destination);
-
-  osc.start();
-
-  gain.gain.exponentialRampToValueAtTime(
-    .001,
-    audioCtx.currentTime+.12
-  );
-
-  osc.stop(
-    audioCtx.currentTime+.12
-  );
+  },30);
 
 }
 
-document.addEventListener(
-  "click",
-  clickSfx
+function stopCharge(){
+
+  charging = false;
+
+  clearInterval(chargeInterval);
+
+}
+
+chargeButton.addEventListener(
+  "pointerdown",
+  startCharge
 );
 
+["pointerup","pointercancel","pointerleave"]
+.forEach(event=>{
+  chargeButton.addEventListener(
+    event,
+    stopCharge
+  );
+});
+
 
 /* =========================================================
-   FLOATING PARTICLES
+   DRAMATIC BURST
 ========================================================= */
 
-setInterval(()=>{
+function dramaticBurst(x,y){
 
-  const p=document.createElement("span");
+  for(let i=0;i<35;i++){
 
-  p.textContent=
-    ["♡","✦","·","💙","✧"][
-      Math.floor(Math.random()*5)
-    ];
+    const p = document.createElement("div");
 
-  p.style.position="fixed";
-  p.style.left=
-    Math.random()*100+"vw";
-  p.style.bottom="-30px";
-  p.style.color="#67e8f9";
-  p.style.opacity=".6";
-  p.style.fontSize=
-    (8+Math.random()*22)+"px";
-  p.style.pointerEvents="none";
-  p.style.zIndex="2";
+    p.className = "heart-particle";
 
-  document.body.appendChild(p);
+    p.textContent =
+      Math.random()>.45 ? "✨" : "💙";
 
-  p.animate([
-    {
-      transform:"translateY(0) rotate(0)",
-      opacity:0
-    },
-    {
-      transform:
-        `translateY(-110vh)
-         rotate(${Math.random()*500-250}deg)`,
-      opacity:.7
+    p.style.left = x+"px";
+    p.style.top = y+"px";
+
+    const angle =
+      Math.random()*Math.PI*2;
+
+    const distance =
+      80 + Math.random()*300;
+
+    p.style.setProperty(
+      "--hx",
+      Math.cos(angle)*distance+"px"
+    );
+
+    p.style.setProperty(
+      "--hy",
+      Math.sin(angle)*distance+"px"
+    );
+
+    p.style.setProperty(
+      "--hr",
+      Math.random()*360+"deg"
+    );
+
+    document.body.appendChild(p);
+
+    setTimeout(()=>{
+      p.remove();
+    },1300);
+
+  }
+
+}
+
+
+/* =========================================================
+   SIMPLE SOUND ENGINE
+========================================================= */
+
+let audioCtx = null;
+
+function soundClick(){
+
+  try{
+
+    if(!audioCtx){
+
+      audioCtx =
+        new (window.AudioContext ||
+        window.webkitAudioContext)();
+
     }
-  ],{
-    duration:
-      5000+Math.random()*5000,
-    easing:"linear"
-  }).onfinish=()=>{
-    p.remove();
-  };
 
-},800);
+    const osc =
+      audioCtx.createOscillator();
+
+    const gain =
+      audioCtx.createGain();
+
+    osc.type = "sine";
+
+    osc.frequency.setValueAtTime(
+      440,
+      audioCtx.currentTime
+    );
+
+    osc.frequency.exponentialRampToValueAtTime(
+      880,
+      audioCtx.currentTime+.12
+    );
+
+    gain.gain.setValueAtTime(
+      .001,
+      audioCtx.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      .12,
+      audioCtx.currentTime+.01
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      .001,
+      audioCtx.currentTime+.18
+    );
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start();
+    osc.stop(audioCtx.currentTime+.2);
+
+  }catch(err){}
+
+}
 
 
 /* =========================================================
-   KONAMI SECRET
+   RESTART
 ========================================================= */
 
-const secretKeys=[
-  "ArrowUp",
-  "ArrowUp",
-  "ArrowDown",
-  "ArrowDown",
-  "ArrowLeft",
-  "ArrowRight",
-  "ArrowLeft",
-  "ArrowRight"
-];
+document.getElementById("restart")
+.addEventListener("click",()=>{
 
-let keys=[];
+  location.reload();
+
+});
+
+
+/* =========================================================
+   KEYBOARD NAVIGATION
+========================================================= */
 
 document.addEventListener("keydown",e=>{
 
-  keys.push(e.key);
+  if(e.key === "ArrowRight"){
 
-  if(keys.length>secretKeys.length){
-    keys.shift();
+    if(current < scenes.length-1){
+      showScene(current+1);
+    }
+
   }
 
-  if(
-    JSON.stringify(keys)===
-    JSON.stringify(secretKeys)
-  ){
+  if(e.key === "ArrowLeft"){
 
-    secret();
+    if(current > 0){
+      showScene(current-1);
+    }
 
   }
 
 });
+
+
+/* =========================================================
+   MOBILE SWIPE
+========================================================= */
+
+let touchStartX = 0;
+
+document.addEventListener(
+  "touchstart",
+  e=>{
+    touchStartX =
+      e.changedTouches[0].screenX;
+  },
+  {passive:true}
+);
+
+document.addEventListener(
+  "touchend",
+  e=>{
+
+    const endX =
+      e.changedTouches[0].screenX;
+
+    const diff =
+      endX-touchStartX;
+
+    if(Math.abs(diff)<70) return;
+
+    if(diff<0 && current<scenes.length-1){
+
+      showScene(current+1);
+
+    }
+
+    if(diff>0 && current>0){
+
+      showScene(current-1);
+
+    }
+
+  },
+  {passive:true}
+);
 
 </script>
 
